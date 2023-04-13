@@ -1,0 +1,49 @@
+{% extends 'baseoaut.html' %}
+{%load static %}
+
+{%block title%} Register {%endblock%}
+
+
+{% block content%}
+<div style="float:left; width:45%;">
+
+</div>
+
+<div class="card" style="float:right; width:50%;">
+  <div class="card-body">
+
+  <h2 class="px-3">Register</h2>
+
+  <form action="{%url 'register' %}" method="post">    {% csrf_token %}
+
+    <div class="input-group form-group py-3 px-3">
+        <span class="input-group-text">First and last name</span>
+        <input type="text" aria-label="First name" class="form-control" name="name"  required>
+        <input type="text" aria-label="Last name" class="form-control" name="lastname"  required>
+      </div>
+  
+    <div class="input-group flex-nowrap form-group py-2 px-3">
+        <span class="input-group-text" id="addon-wrapping">@</span>
+        <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping" name="username" required  maxlength='30'>
+      </div>
+  
+      <div class="mb-3 form-group py-1 px-3">
+        <label for="exampleFormControlInput1" class="form-label">Email address</label>
+        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" name='email'  required>
+      </div>
+  
+      <div class="mb-2 row form-group py-1 px-3">
+        <label for="inputPassword" class="col-sm-0 col-form-label">Password</label>
+        <div class="col-sm-8">
+          <input type="password" class="form-control" id="inputPassword" name='password'  required  minlength='6'  maxlength='10'>
+        </div>
+  
+        <div class="col-12 form-group py-4 px-3">
+            <button class="btn btn-primary" type="submit">Submit form</button>
+        </div>
+
+  </form>
+  </div>   
+</div>
+
+{% endblock %}

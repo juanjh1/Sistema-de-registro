@@ -43,7 +43,9 @@ INSTALLED_APPS = [
     #Apps
     "vehiculo",
     "empresa",
-    "persona"
+    "persona",
+    "oauth",
+    "cliente",
 
 
     #Terceros
@@ -64,7 +66,7 @@ ROOT_URLCONF = "register_system.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": ['templates', 'cliente/templates'],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
