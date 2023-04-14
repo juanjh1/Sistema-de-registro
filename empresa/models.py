@@ -1,6 +1,6 @@
 from django.db import models
 from uuid import uuid4
-
+from  django.contrib.auth.models import User
 # Create your models here.
 
 class Empresa(models.Model):
@@ -13,6 +13,7 @@ class Empresa(models.Model):
     fecha_resolucion = models.DateField(null=False)
     fecha_creacion = models.DateTimeField( auto_now=True)
     fecha_actualizacion = models.DateTimeField( auto_now=True)
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self) -> str:
        return self.nombre + str(self.codigo)

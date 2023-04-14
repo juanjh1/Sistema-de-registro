@@ -3,15 +3,17 @@ from  django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+
 
 # Create your views here.
 
-def view_register(request):return render (request,"registro.html")
+def view_register(request):
+    if request.user.is_authenticated:
+        return redirect('/home/')
+    else:
+        return render (request,"registro.html")
 
-from django.contrib.auth import authenticate, login
-from django.contrib.auth.hashers import make_password
-from django.contrib.auth.models import User
-from django.contrib import messages
 
 def register(request):
     if request.method == 'POST':
@@ -52,7 +54,11 @@ def register(request):
                     messages.error(request, 'Error inesperado')
     return render(request, 'registro.html')
 
-def view_login(request): return render(request, "login.html")
+def view_login(request): 
+    if request.user.is_authenticated:
+        return redirect('/home/')
+    else:
+        return render(request, "login.html")
     
 
 def login_def (request):
@@ -70,6 +76,13 @@ def login_def (request):
         else:
             messages.error(request, 'Error el las credeciales ingresadas')
             
-    return redirect('register/')
+    return redirect('/auth/login/')
 
-        
+@login_required
+def logout_def(request):
+
+    logout(request)
+    messages.success(request, 'Sesion cerrada correctamente ')
+    return redirect('/')
+
+def view_forgotpassword (request): return render(request, 'forgot-password.html')
