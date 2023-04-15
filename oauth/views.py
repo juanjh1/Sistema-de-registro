@@ -4,7 +4,10 @@ from django.contrib.auth.hashers import make_password
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+import datetime
+import uuid
 
+from django.utils import timezone
 
 # Create your views here.
 
@@ -86,3 +89,6 @@ def logout_def(request):
     return redirect('/')
 
 def view_forgotpassword (request): return render(request, 'forgot-password.html')
+
+
+

@@ -1,0 +1,27 @@
+{% extends 'base2.html' %}
+
+{% load static %}
+
+
+
+{% block page %}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'view_cliente' %}">Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Empresas</li>
+    </ol>
+
+    <ol class="breadcrumb">
+        {% for empresa in empresas %}
+
+        <li class="breadcrumb-item"> {{empresa.nombre}} </li>
+        
+        
+        {% endfor %}
+      
+      </ol>
+  
+  
+  
+{% endblock  %}

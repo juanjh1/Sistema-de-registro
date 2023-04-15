@@ -4,50 +4,75 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>User Profile</title>
+	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<style>
+		body {
+			background-color: #f5f5f5;
+		}
+		.card {
+			border-radius: 15px;
+			box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+		}
+		.card-header {
+			border-radius: 15px 15px 0 0;
+			background-color: #36D1DC;
+			background-image: linear-gradient(90deg, #36D1DC 0%, #5B86E5 100%);
+			color: white;
+			font-weight: bold;
+		}
+	</style>
 </head>
 <body>
-	<div class="container mt-5">
-		<div class="row">
-			<div class="col-md-4">
-				<img src="https://via.placeholder.com/150" alt="Profile Picture" class="img-thumbnail">
-			</div>
-			<div class="col-md-8">
-				<h1>John Doe</h1>
-				<h5>Web Developer</h5>
-				<hr>
-				<p><strong>Email:</strong> john.doe@example.com</p>
-				<p><strong>Phone:</strong> +1-123-456-7890</p>
-				<p><strong>Location:</strong> New York, NY</p>
-			</div>
-		</div>
-		<div class="row mt-3">
-			<div class="col-md-4">
+	<div class="container-fluid bg-white">
+		<div class="row vh-100">
+			<div class="col-md-8 col-lg-6 mx-auto my-auto">
 				<div class="card">
-					<div class="card-body">
-						<h5 class="card-title">Skills</h5>
-						<ul class="list-unstyled">
-							<li>HTML5</li>
-							<li>CSS3</li>
-							<li>JavaScript</li>
-							<li>Bootstrap</li>
-							<li>PHP</li>
-						</ul>
+					<div class="card-header text-center">
+						<h1 class="mb-0">John Doe</h1>
+						<h5>Web Developer</h5>
 					</div>
-				</div>
-			</div>
-			<div class="col-md-8">
-				<div class="card">
 					<div class="card-body">
-						<h5 class="card-title">Bio</h5>
-						<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed venenatis eleifend orci, vel pulvinar mauris varius a. Curabitur vel sapien ut tellus vulputate feugiat. Pellentesque luctus magna at finibus aliquam. Nulla facilisi. Mauris ac nunc ex. Donec congue risus id augue maximus, at scelerisque urna vehicula. Nam volutpat aliquam nibh, sed consequat quam luctus eu.</p>
+						<div class="row">
+							<div class="col-md-4 text-center">
+								<img src="https://via.placeholder.com/150" alt="Profile Picture" class="img-thumbnail">
+							</div>
+							<div class="col-md-8">
+								<p><strong>Email:</strong> john.doe@example.com</p>
+								<p><strong>Phone:</strong> +1-123-456-7890</p>
+								<p><strong>Location:</strong> New York, NY</p>
+							</div>
+						</div>
+						<hr>
+						<div class="row">
+							<div class="col-md-4">
+								<div class="card">
+									<div class="card-header">
+										<h5 class="card-title text-center mb-0">Skills</h5>
+									</div>
+									<div class="card-body">
+										<ul class="list-unstyled">
+											<li>HTML5</li>
+											<li>CSS3</li>
+											<li>JavaScript</li>
+											<li>Bootstrap</li>
+											<li>PHP</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-8">
+								<div class="card">
+									<div class="card-header">
+										<h5 class="card-title text-center mb-0">Bio</h5>
+									</div>
+									<div class="card-body">
+										<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed venenatis eleifend orci, vel pulvinar mauris varius a. Curabitur vel sapien ut tellus vulputate feugiat. Pellentesque luctus magna at finibus aliquam. Nulla facilisi. Mauris ac nunc ex. Donec congue risus id augue maximus, at
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</body>
-</html>
+				</body>
+				</html>
