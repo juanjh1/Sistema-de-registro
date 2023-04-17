@@ -12,15 +12,18 @@
       <li class="breadcrumb-item active" aria-current="page">Empresas</li>
     </ol>
 
-    <ol class="breadcrumb">
-        {% for empresa in empresas %}
+  
+      {% for empresa in empresas %}
+      <ol class="breadcrumb">
 
         <li class="breadcrumb-item"> {{empresa.nombre}} </li>
+        <a href="{% url 'empresa_eliminar' code=empresa.codigo %}" class="btn btn-primary">Update</a>
+          <a href="" class="btn btn-danger">Delete</a>
         
-        
-        {% endfor %}
-      
+         
       </ol>
+      {% endfor %}
+     
   
   
   
