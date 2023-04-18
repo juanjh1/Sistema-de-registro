@@ -14,4 +14,4 @@ def  view_vehiculo(request):
    'vehiculo':models.Vehiculo.objects.filter().all()
   
  }
- return render(request, 'view_vehiculo.html', context)
+ return render(request, 'list_vehiculo.html', context)

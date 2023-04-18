@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from . import models
+import datetime
 
 # Create your views here.
 
@@ -114,3 +115,44 @@ def view_actualizar(request, code):
     }
 
     return render(request, 'actualizar_empresa.html',context )
+
+
+def actualizar (request, code):
+    nombre = request.POST.get('nombre')
+    direccion =  request.POST.get('direccion')
+    flota =  request.POST.get('flota')
+    correo_electronico =  request.POST.get('correo_electronico')
+    fecha_resolucion = request.POST.get('fecha_resolucion')
+    numero_resolucion =  request.POST.get('numero_resolucion')
+    federacion =  request.POST.get('federacion')
+
+    
+
+    empresa = models.Empresa.objects.filter(codigo=code).first()
+
+    if models.Federacion.objects.filter(nombre=federacion).first() is None: 
+            
+            models.Federacion.objects.create(
+                nombre=federacion
+
+            )
+
+    federacion = models.Federacion.objects.filter(nombre=federacion).first()
+    
+
+    fecha_actualizacion = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    
+
+    empresa.nombre = nombre
+    empresa.direccion = direccion
+    empresa.flota = flota
+    empresa.correo_electronico = correo_electronico
+    empresa.fecha_resolucion = fecha_resolucion
+    empresa.numero_resolucion = numero_resolucion
+    empresa.federacion = federacion.id
+    empresa.fecha_actualizacion = fecha_actualizacion
+    empresa.save()
+
+
+
+    return redirect('/home/')

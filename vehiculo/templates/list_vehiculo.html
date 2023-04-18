@@ -1,0 +1,30 @@
+{% extends 'base2.html' %}
+
+{% load static %}
+
+
+
+{% block page %}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'view_cliente' %}">Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Vehiculos</li>
+    </ol>
+
+  
+      {% for empresa in empresas %}
+      <ol class="breadcrumb">
+
+        <li class="breadcrumb-item"> {{empresa.nombre}} </li>
+          <a href="{% url 'empresa_acutalizar' code=empresa.codigo %}"class="btn btn-primary">Update</a>
+          <a href="{% url 'empresa_eliminar' code=empresa.codigo   %}" class="btn btn-danger">Delete</a>
+        
+         
+      </ol>
+      {% endfor %}
+     
+  
+  
+  
+{% endblock  %}

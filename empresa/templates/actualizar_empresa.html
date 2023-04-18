@@ -19,7 +19,7 @@
       Formulario
     </div>
     <div class="card-body">
-      <form id="form-paso-1" class="formulario" action="{% url 'empresa_create' %}" method="POST" >
+      <form id="form-paso-1" class="formulario" action="{% url 'empresa_acutalizar'  code=empresa.codigo%}" method="POST" >
         {% csrf_token %}
         <div class="form-group">
           <label for="id_nombre" class="form-label">Nombre:</label>
@@ -50,7 +50,7 @@
           <label for="id_nombre" class="form-label">Federacion:</label>
           <input type="text" id="id_nombre" name="federacion" maxlength="50" required class="form-control" value={{federacion.nombre}}>
         </div>
-        <button type="submit" class="btn btn-primary btn-siguiente" data-actual="form-paso-1" data-siguiente="form-paso-2">Siguiente</button>
+        <button type="submit" class="btn btn-primary btn-siguiente" data-actual="form-paso-1" data-siguiente="form-paso-2">Actualizar</button>
      
     </div>
   </div>
