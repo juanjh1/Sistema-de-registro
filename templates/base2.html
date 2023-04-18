@@ -68,6 +68,7 @@
                         
                         <a class="collapse-item" href="{% url 'form_empresa' %}" >Registrar</a>
                         <a class="collapse-item" href="{% url 'view_empresa' %}">Listado</a>
+                        <h6 class="collapse-header">Paraderos</h6>
                     </div>
                 </div>
             </li>
@@ -87,8 +88,23 @@
                        
                     </div>
                 </div>
-            </li>
 
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+                        aria-expanded="true" aria-controls="collapsePages">
+                        <i class="fas fa-fw fa-folder"></i>
+                        <span>Personas</span>
+                    </a>
+                    <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                        
+                            
+                            <a class="collapse-item" href="{% url 'viewregister_persona' %}">Registrar</a>
+                            <a class="collapse-item" href="{% url 'view_personas' %}">Listado</a>
+                         
+                        </div>
+                    </div>
+                </li>
             <!-- Divider -->
             <hr class="sidebar-divider">
 

@@ -1,0 +1,58 @@
+{% extends 'base2.html' %}
+
+{% load static %}
+
+
+
+{% block page %}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'view_cliente' %}">Home</a></li>
+      <li class="breadcrumb-item" aria-current="page"><a href="{% url 'view_empresa' %}">Empresas</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Actualizar empresa</li>
+    </ol>
+</nav>
+<div class="container">
+  <div class="card my-4">
+    <div class="card-header">
+      Formulario
+    </div>
+    <div class="card-body">
+      <form id="form-paso-1" class="formulario" action="{% url 'empresa_create' %}" method="POST" >
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="id_nombre" class="form-label">Nombre:</label>
+          <input type="text" id="id_nombre" name="nombre" maxlength="50" required class="form-control" value={{empresa.nombre}}> 
+        </div>
+        <div class="form-group">
+          <label for="id_direccion" class="form-label">Dirección:</label>
+          <input type="text" id="id_direccion" name="direccion" maxlength="70" required class="form-control" value={{empresa.direccion}}>
+        </div>
+        <div class="form-group">
+          <label for="id_flota" class="form-label">Flota:</label>
+          <input type="number" id="id_flota" name="flota" required class="form-control" value={{empresa.flota}}>
+        </div>
+        <div class="form-group">
+          <label for="id_correo_electronico" class="form-label">Correo electrónico:</label>
+          <input type="email" id="id_correo_electronico" name="correo_electronico" maxlength="254" required class="form-control" value={{empresa.correo_electronico}}>
+        </div>
+        <div class="form-group">
+          <label for="id_numero_resolucion" class="form-label">Número de resolución:</label>
+          <input type="text" id="id_numero_resolucion" name="numero_resolucion" maxlength="100" required class="form-control" value={{empresa.numero_resolucion}}> 
+        </div>
+        <div class="form-group">
+          <label for="id_fecha_resolucion" class="form-label">Fecha de resolución:</label>
+          <input type="date" id="id_fecha_resolucion" name="fecha_resolucion" required class="form-control" value={{empresa.fecha_resolucion}}>
+        </div>
+        
+        <div class="form-group">
+          <label for="id_nombre" class="form-label">Federacion:</label>
+          <input type="text" id="id_nombre" name="federacion" maxlength="50" required class="form-control" value={{federacion.nombre}}>
+        </div>
+        <button type="submit" class="btn btn-primary btn-siguiente" data-actual="form-paso-1" data-siguiente="form-paso-2">Siguiente</button>
+     
+    </div>
+  </div>
+</div>
+{% endblock  %}

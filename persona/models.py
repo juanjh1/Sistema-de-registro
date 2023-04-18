@@ -14,6 +14,7 @@ class TipoDocumento(models.Model):
 
 class Persona(models.Model):
     codigo =  models.UUIDField(primary_key=True, default=uuid4, editable=False)
+    nombre = models.CharField(max_length=10, null=False)
     empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE)
     tipodocumento = models.ForeignKey(TipoDocumento, on_delete=models.CASCADE)
     fecha_creacion = models.DateTimeField(auto_now_add=True)

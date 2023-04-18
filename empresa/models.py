@@ -13,6 +13,7 @@ class Empresa(models.Model):
     fecha_resolucion = models.DateField(null=False)
     fecha_creacion = models.DateTimeField( auto_now=True)
     fecha_actualizacion = models.DateTimeField( auto_now=True)
+    federacion = models.CharField( max_length=50, null=False)
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self) -> str:
@@ -22,13 +23,13 @@ class Empresa(models.Model):
         verbose_name_plural = "Empresas"
 
 class Federacion (models.Model):
-    codigo =  models.UUIDField(primary_key=True, default=uuid4, editable=False)
+    id = models.AutoField(primary_key=True)
     nombre = models.CharField( max_length=50)
     fecha_creacion = models.DateTimeField( auto_now=True)
     fecha_actualizacion = models.DateTimeField( auto_now=True)
     
     def __str__(self) -> str:
-       return self.nombre + str(self.codigo)
+       return self.nombre + str(self.id)
 
     class Meta:
         verbose_name_plural = "Federaciones"

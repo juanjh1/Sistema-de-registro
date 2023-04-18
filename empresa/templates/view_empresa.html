@@ -17,8 +17,8 @@
       <ol class="breadcrumb">
 
         <li class="breadcrumb-item"> {{empresa.nombre}} </li>
-        <a href="{% url 'empresa_eliminar' code=empresa.codigo %}" class="btn btn-primary">Update</a>
-          <a href="" class="btn btn-danger">Delete</a>
+          <a href="{% url 'empresa_acutalizar' code=empresa.codigo %}"class="btn btn-primary">Update</a>
+          <a href="{% url 'empresa_eliminar' code=empresa.codigo   %}" class="btn btn-danger">Delete</a>
         
          
       </ol>

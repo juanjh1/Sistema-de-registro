@@ -1,0 +1,61 @@
+{% extends 'base2.html' %}
+
+{% load static %}
+
+
+
+{% block page %}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'view_cliente' %}">Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Registrar Persona</li>
+    </ol>
+</nav>
+<div class="container">
+  <div class="card my-4">
+    <div class="card-header">
+      Formulario
+    </div>
+    <div class="card-body">
+      
+      <form id="form-paso-1" class="formulario" action="{% url 'registrar_persona' %}" method="POST" >
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="id_nombre" class="form-label">Nombre</label>
+          <input type="text" id="id_nombre_persona" name="nombre_persona" maxlength="50" required class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="id_tipo_documento" class="form-label">tipo_documento:</label>
+          <select id="id_tipo_documento" name="tipo_documento" required class="form-control">
+          {% for doc in tipo_documento %}
+          <option value="{{doc}}">{{doc}}</option>
+          
+          {% endfor %}
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="id_nombre" class="form-label">abreviatura</label>
+          <input type="text" id="id_nombre" name="abreviatura" maxlength="50" required class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="id_direccion" class="form-label">Descripcion</label>
+          <input type="text" id="id_direccion" name="descripcion" maxlength="70" required class="form-control">
+        </div>
+        
+        <div class="form-group">
+          <label for="id_tipo_documento" class="form-label">Empresa</label>
+          <select id="id_tipo_documento" name="empresa" required class="form-control">
+          {% for empresa in empresas %}
+          <option value="{{empresa}}">{{empresa}}</option>
+          
+          {% endfor %}
+          </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-siguiente" data-actual="form-paso-1" data-siguiente="form-paso-2">submit</button>
+     
+    </div>
+  </div>
+</div>
+{% endblock  %}
