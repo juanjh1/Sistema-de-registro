@@ -10,6 +10,7 @@
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="{% url 'view_cliente' %}">Home</a></li>
       <li class="breadcrumb-item active" aria-current="page">Registrar Persona</li>
+      <li class="breadcrumb-item active" aria-current="page">Actualizar persona</li>
     </ol>
 </nav>
 <div class="container">
@@ -23,7 +24,7 @@
         {% csrf_token %}
         <div class="form-group">
           <label for="id_nombre" class="form-label">Nombre</label>
-          <input type="text" id="id_nombre_persona" name="nombre_persona" maxlength="50" required class="form-control">
+          <input type="text" id="id_nombre_persona" name="nombre_persona" maxlength="50" required class="form-control"  value={{persona.nombre}}>
         </div>
         <div class="form-group">
           <label for="id_tipo_documento" class="form-label">tipo_documento:</label>
@@ -36,11 +37,11 @@
         </div>
         <div class="form-group">
           <label for="id_nombre" class="form-label">Numero documento</label>
-          <input type="text" id="id_nombre" name="numero_documento" maxlength="50" required class="form-control">
+          <input type="text" id="id_nombre" name="numero_documento" maxlength="50" required class="form-control" value={{persona.numero}}>
         </div>
         <div class="form-group">
           <label for="id_direccion" class="form-label">Descripcion</label>
-          <input type="text" id="id_direccion" name="descripcion" maxlength="70" required class="form-control">
+          <input type="text" id="id_direccion" name="descripcion" maxlength="70" required class="form-control" value=''>
         </div>
         
         <div class="form-group">

@@ -21,16 +21,33 @@
       <form id="form-paso-1" class="formulario" action="{% url 'empresa_create' %}" method="POST" >
         {% csrf_token %}
         <div class="form-group">
-          <label for="id_nombre" class="form-label">Nombre:</label>
+          <label for="id_tipo_documento" class="form-label">empresa</label>
+          <select id="id_tipo_documento" name="tipo_documento" required class="form-control">
+          {% for empresa in empresas %}
+          
+          <option value="{{empresa}}"> {{empresa}} </option>
+          
+          {% endfor %}
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="id_nombre" class="form-label">Numero de placa:</label>
           <input type="text" id="id_nombre" name="nombre" maxlength="50" required class="form-control">
         </div>
         <div class="form-group">
-          <label for="id_direccion" class="form-label">Dirección:</label>
+          
+          <label for="id_direccion" class="form-label">numeracion</label>
           <input type="text" id="id_direccion" name="direccion" maxlength="70" required class="form-control">
         </div>
         <div class="form-group">
-          <label for="id_flota" class="form-label">Flota:</label>
-          <input type="number" id="id_flota" name="flota" required class="form-control">
+          <label for="id_tipo_documento" class="form-label">propietario</label>
+          <select id="id_tipo_documento" name="tipo_documento" required class="form-control">
+          {% for empresa in empresas %}
+          
+          <option value="{{empresa}}"> {{empresa}} </option>
+          
+          {% endfor %}
+          </select>
         </div>
         <div class="form-group">
           <label for="id_correo_electronico" class="form-label">Correo electrónico:</label>
@@ -41,13 +58,19 @@
           <input type="text" id="id_numero_resolucion" name="numero_resolucion" maxlength="100" required class="form-control">
         </div>
         <div class="form-group">
-          <label for="id_fecha_resolucion" class="form-label">Fecha de resolución:</label>
+          <label for="id_fecha_resolucion" class="form-label">Ano fabricacion:</label>
           <input type="date" id="id_fecha_resolucion" name="fecha_resolucion" required class="form-control">
         </div>
         
         <div class="form-group">
-          <label for="id_nombre" class="form-label">Federacion:</label>
-          <input type="text" id="id_nombre" name="federacion" maxlength="50" required class="form-control">
+          <label for="id_tipo_documento" class="form-label">Conductor</label>
+          <select id="id_tipo_documento" name="tipo_documento" required class="form-control">
+          {% for empresa in empresas %}
+          
+          <option value="{{empresa}}"> {{empresa}} </option>
+          
+          {% endfor %}
+          </select>
         </div>
         <button type="submit" class="btn btn-primary btn-siguiente" data-actual="form-paso-1" data-siguiente="form-paso-2">Siguiente</button>
      

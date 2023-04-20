@@ -46,10 +46,14 @@
         </div>
         
         <div class="form-group">
-          <label for="id_nombre" class="form-label">Federacion:</label>
-          <input type="text" id="id_nombre" name="federacion" maxlength="50" required class="form-control">
+          <label for="f" class="form-label">Federacion</label>
+          <select id="id_tipo_documento" name="federacion" required class="form-control">
+          {% for federacion in federaciones %}
+          <option value="{{federacion}}">{{federacion}}</option>
+          
+          {% endfor %}
+          </select>
         </div>
-        <button type="submit" class="btn btn-primary btn-siguiente" data-actual="form-paso-1" data-siguiente="form-paso-2">Siguiente</button>
      
     </div>
   </div>

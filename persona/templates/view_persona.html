@@ -10,17 +10,59 @@
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="{% url 'view_cliente' %}">Home</a></li>
       <li class="breadcrumb-item active" aria-current="page">Persona</li>
+      
+
     </ol>
 </nav>
-{% for persona in personas %}
-<ol class="breadcrumb">
 
-  <li class="breadcrumb-item"> {{persona.nombre}} </li>
-    <a href=" "class="btn btn-primary">Update</a>
-    <a href="" class="btn btn-danger">Delete</a>
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+  </div>
+  <div class="card-body">
+      <div class="table-responsive">
+          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+              <thead>
+                  <tr>
+                      <th>Nombre</th>
+                      <th>Direccion</th>
+                      <th>Flota</th>
+                      <th>Email</th>
+                      <th>N.Resolucion</th>
+                      <th>Federacion</th>
+                      <th>Acciones</th>
+                  </tr>
+              </thead>
+              <tfoot>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Direccion</th>
+                  <th>Flota</th>
+                  <th>Email</th>
+                  <th>N.Resolucion</th>
+                  <th>Federacion</th>
+                  <th>Acciones</th>
+              </tr>
+              </tfoot>
+              <tbody>
+                {% for persona in personas%}
+                  <tr>
+                      <td>{{persona.nombre}}</td>
+                      <td>{{persona.empresa}}</td>
+                      <td>{{persona.tipodocumento}}</td>
+                      
+
+                      <td><a href="{% url 'delete_persona' code=persona.codigo %}" class="btn btn-danger">Delete</a>  <a href="{% url 'view_actualizar_persona' code=persona.codigo %}"class="btn btn-primary">Update</a></td>
+                      </tr>
+                  </tr>
+                {% endfor %}
+              </tbody>
+          </table>
+      </div>
+  </div>
+</div>
   
-   
-</ol>
-{% endfor %}
+
+ 
 
 {% endblock  %}

@@ -29,36 +29,24 @@
 			<div class="col-md-8 col-lg-6 mx-auto my-auto">
 				<div class="card">
 					<div class="card-header text-center">
-						<h1 class="mb-0">John Doe</h1>
-						<h5>Web Developer</h5>
+						<h1 class="mb-0">{{usuario.first_name}}</h1>
+						<h5>{{usuario.last_name}}</h5>
 					</div>
 					<div class="card-body">
 						<div class="row">
 							<div class="col-md-4 text-center">
-								<img src="https://via.placeholder.com/150" alt="Profile Picture" class="img-thumbnail">
+								<img src="{{ info_usuario.image.url }}" alt="Profile Picture" class="img-thumbnail">
 							</div>
 							<div class="col-md-8">
-								<p><strong>Email:</strong> john.doe@example.com</p>
-								<p><strong>Phone:</strong> +1-123-456-7890</p>
-								<p><strong>Location:</strong> New York, NY</p>
+								<p><strong>Email:</strong> {{usuario.email}}</p>
+								<p><strong>Phone:</strong> {{info_usuario.numerotelefonico}} </p>
+								<p><strong>Location:</strong> {{info_usuario.direccion}}</p>
 							</div>
 						</div>
 						<hr>
 						<div class="row">
 							<div class="col-md-4">
-								<div class="card">
-									<div class="card-header">
-										<h5 class="card-title text-center mb-0">Skills</h5>
-									</div>
-									<div class="card-body">
-										<ul class="list-unstyled">
-											<li>HTML5</li>
-											<li>CSS3</li>
-											<li>JavaScript</li>
-											<li>Bootstrap</li>
-											<li>PHP</li>
-										</ul>
-									</div>
+								
 								</div>
 							</div>
 							<div class="col-md-8">

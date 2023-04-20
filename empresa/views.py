@@ -13,8 +13,11 @@ def view_empresas():
 
 
 def createview_empresas(request):
+    context = {
+        'federaciones': models.Federacion.objects.filter()
+    }
 
-    return render(request, 'reg_empresa.html')
+    return render(request, 'reg_empresa.html', context)
 
 
 def view_empresas(request):
@@ -28,14 +31,7 @@ def view_empresas(request):
 
 
 
-def view_empresas(request):
-    
-    
-    
-    context = {
-    'empresas': models.Empresa.objects.filter().all()
-    }
-    return render(request, 'view_empresa.html', context)
+
 
 
 
@@ -53,16 +49,9 @@ def create_empresa(request):
         
         
 
-        if models.Federacion.objects.filter(nombre=federacion).first() is None: 
-            
-            models.Federacion.objects.create(
-                nombre=federacion
+       
 
-            )
-
-        federacion = models.Federacion.objects.filter(nombre=federacion).first()
-
-        print(federacion)
+        
         models.Empresa.objects.create(
            nombre=nombre,
            direccion=direccion,
@@ -95,64 +84,44 @@ def delete_empresa ( request, code):
        
 
 def view_actualizar(request, code):
+
     empresa = models.Empresa.objects.filter(codigo=code).first()
 
-    
-    federacion_nombre = empresa.federacion
-
-   
-
-     
-
-    
-
-    federacion = models.Federacion.objects.filter(nombre=federacion_nombre).first()
-    print(federacion)
 
     context = {
         'empresa': empresa,
-        'federacion': federacion
+        'federaciones': models.Federacion.objects.filter()
     }
 
     return render(request, 'actualizar_empresa.html',context )
 
+def actualizar(request, code):
+    if request.method == 'POST':
+        nombre = request.POST.get('nombre')
+        direccion = request.POST.get('direccion')
+        flota = request.POST.get('flota')
+        correo_electronico = request.POST.get('correo_electronico')
+        fecha_resolucion = request.POST.get('fecha_resolucion')
+        numero_resolucion = request.POST.get('numero_resolucion')
+        federacion_nombre = request.POST.get('federacion')
 
-def actualizar (request, code):
-    nombre = request.POST.get('nombre')
-    direccion =  request.POST.get('direccion')
-    flota =  request.POST.get('flota')
-    correo_electronico =  request.POST.get('correo_electronico')
-    fecha_resolucion = request.POST.get('fecha_resolucion')
-    numero_resolucion =  request.POST.get('numero_resolucion')
-    federacion =  request.POST.get('federacion')
+        empresa = models.Empresa.objects.filter(codigo=code).first()
+        if not empresa:
+            return render(request, 'error.html', {'mensaje': 'La empresa no existe.'})
 
-    
+      
 
-    empresa = models.Empresa.objects.filter(codigo=code).first()
+        fecha_actualizacion = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-    if models.Federacion.objects.filter(nombre=federacion).first() is None: 
-            
-            models.Federacion.objects.create(
-                nombre=federacion
+        empresa.nombre = nombre
+        empresa.direccion = direccion
+        empresa.flota = flota
+        empresa.correo_electronico = correo_electronico
+        empresa.fecha_resolucion = fecha_resolucion
+        empresa.numero_resolucion = numero_resolucion
+        empresa.federacion = federacion_nombre
+        empresa.fecha_actualizacion = fecha_actualizacion
 
-            )
-
-    federacion = models.Federacion.objects.filter(nombre=federacion).first()
-    
-
-    fecha_actualizacion = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    
-
-    empresa.nombre = nombre
-    empresa.direccion = direccion
-    empresa.flota = flota
-    empresa.correo_electronico = correo_electronico
-    empresa.fecha_resolucion = fecha_resolucion
-    empresa.numero_resolucion = numero_resolucion
-    empresa.federacion = federacion.id
-    empresa.fecha_actualizacion = fecha_actualizacion
-    empresa.save()
-
-
+        empresa.save()
 
     return redirect('/home/')
