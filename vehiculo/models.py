@@ -24,6 +24,8 @@ class Modelo(models.Model):
 
     class Meta:
         verbose_name_plural = 'Modelos'
+    def __str__(self):
+        return self.descripcion + str(self.codigo)
 
 
 class Vehiculo(models.Model):

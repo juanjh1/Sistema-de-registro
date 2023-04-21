@@ -70,12 +70,42 @@ def delete_persona(request, code):
 def view_actualizar (request, code):
 
     context ={
-    'persona' : models.Persona.objects.filter(codigo=code).first()
+    'persona' : models.Persona.objects.filter(codigo=code).first(),
+    'tipo_documento': models.TipoDocumento.objects.filter(),
+    'empresas' : Empresa.objects.filter().all()
+
     } 
   
 
     return render(request,'actualizar_persona.html', context)
     
     
+def actualizar(request, code):
+    nombre = request.POST.get('nombre_persona')
+    tipo_documento =  request.POST.get('tipo_documento')
+    numero =  request.POST.get('numero_documento')
+    descripcion =  request.POST.get('descripcion')
+    empresa = request.POST.get('empresa')
+   
+    print(nombre,tipo_documento,numero,descripcion,empresa,sep='\n')
+    
+    uuid_empresa = empresa[-36:]
+    objeto_uuid = uuid.UUID(uuid_empresa)
 
     
+    
+    empresa=Empresa.objects.filter(codigo=objeto_uuid).first()
+   
+    tipo_docu = models.TipoDocumento.objects.filter(tipo_documento=tipo_documento).first()
+
+    persona = models.Persona.objects.filter(codigo=code).first()
+
+    persona.nombre = nombre
+    persona.tipodocumento = tipo_docu
+    persona.numero = numero
+    persona.empresa = empresa
+    persona.save()
+
+    return redirect('/home/')
+
+

@@ -27,17 +27,18 @@
           
           <option value="{{empresa}}"> {{empresa}} </option>
           
+          
           {% endfor %}
           </select>
         </div>
         <div class="form-group">
           <label for="id_nombre" class="form-label">Numero de placa:</label>
-          <input type="text" id="id_nombre" name="n_placa" maxlength="50" required class="form-control">
+          <input type="text" id="id_nombre" name="n_placa" maxlength="50" required class="form-control" value={{vehiculo.numero_placa}}>
         </div>
         <div class="form-group">
           
           <label for="id_direccion" class="form-label">numeracion</label>
-          <input type="text" id="id_direccion" name="numeracion" maxlength="70" required class="form-control">
+          <input type="text" id="id_direccion" name="numeracion" maxlength="70" required class="form-control" value={{vehiculo.numeracion}}>
         </div>
         <div class="form-group">
           <label for="id_tipo_documento" class="form-label">propietario</label>
@@ -70,7 +71,7 @@
           <select id="id_tipo_documento" name="conductor" required class="form-control">
           {% for persona in personas %}
           
-          <option value="{{persona}}"> {{persona}} </option>
+          <option value="{{persona.id}}"> {{persona.nombre}} </option>
           
           {% endfor %}
           </select>

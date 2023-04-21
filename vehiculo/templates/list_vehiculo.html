@@ -24,6 +24,61 @@
       </ol>
       {% endfor %}
      
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{% url 'view_cliente' %}">Home</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Persona</li>
+          
+    
+        </ol>
+    </nav>
+    
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+      </div>
+      <div class="card-body">
+          <div class="table-responsive">
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                      <tr>
+                          <th>Nombre</th>
+                          <th>Direccion</th>
+                          <th>Flota</th>
+                          <th>Email</th>
+                          <th>N.Resolucion</th>
+                          <th>Federacion</th>
+                          <th>Acciones</th>
+                      </tr>
+                  </thead>
+                  <tfoot>
+                    <tr>
+                      <th>Nombre</th>
+                      <th>Direccion</th>
+                      <th>Flota</th>
+                      <th>Email</th>
+                      <th>N.Resolucion</th>
+                      <th>Federacion</th>
+                      <th>Acciones</th>
+                  </tr>
+                  </tfoot>
+                  <tbody>
+                    {% for vehiculo in vehiculos %}
+                      <tr>
+                          <td>{{vehiculo.propietario}}</td>
+                          <td>{{vehiculo.modelo}}</td>
+                          <td>{{vehiculo.empresa}}</td>
+                          
+    
+                          <td><a href="{% url 'delete_vehiculo' code=vehiculo.codigo%}" class="btn btn-danger">Delete</a>  <a href="{% url 'actualizar_vehiculo_from'  code=vehiculo.codigo%}"class="btn btn-primary">Update</a></td>
+                          </tr>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+              </table>
+          </div>
+      </div>
+    </div>
   
   
   
