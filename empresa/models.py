@@ -44,7 +44,7 @@ class Licencia(models.Model):
     fecha_creacion = models.DateTimeField( auto_now=True)
     fecha_actualizacion = models.DateTimeField( auto_now=True)
     def __str__(self) -> str:
-       return self.nombre + str(self.codigo)
+       return str(self.empresa )+ str(self.codigo)
 
     class Meta:
         verbose_name_plural = "Licencias"

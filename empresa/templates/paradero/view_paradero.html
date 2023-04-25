@@ -1,0 +1,52 @@
+{% extends 'base2.html' %}
+
+{% load static %}
+
+{% block page %}
+<nav aria-label="breadcrumb">
+<ol class="breadcrumb">
+<li class="breadcrumb-item"><a href="{% url 'view_cliente' %}">Home</a></li>
+<li class="breadcrumb-item active" aria-current="page">Paraderos</li>
+</ol>
+</nav>
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+  </div>
+  <div class="card-body">
+      <div class="table-responsive">
+          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+              <thead>
+                  <tr>
+                      <th>Nombre</th>
+                      <th>N.Resolucion</th>
+                      <th>Fecha de Resolucion</th>
+                      <th>Acciones</th>
+                  </tr>
+              </thead>
+              <tfoot>
+                  <tr>
+                      <th>Nombre</th>
+                      <th>N.Resolucion</th>
+                      <th>Fecha de Resolucion</th>
+                      <th>Acciones</th>
+                  </tr>
+              </tfoot>
+              <tbody>
+                  {% for paradero in paraderos %}
+                      <tr>
+                          <td>{{ paradero.nombre }}</td>
+                          <td>{{ paradero.numero_resolucion }}</td>
+                          <td>{{ paradero.fecha_resolucion }}</td>
+                          <td>
+                            <a href="{% url 'eliminar_paradero' code=paradero.codigo %}" class="btn btn-danger"><span aria-hidden="true">&times;</span> Eliminar</a>
+                            <a href="" class="btn btn-primary"><span aria-hidden="true">&#9998;</span> Actualizar</a>
+                          </td>
+                      </tr>
+                  {% endfor %}
+              </tbody>
+          </table>
+      </div>
+  </div>
+</div>
+{% endblock page %}

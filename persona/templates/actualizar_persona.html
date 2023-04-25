@@ -2,8 +2,6 @@
 
 {% load static %}
 
-
-
 {% block page %}
 
 <nav aria-label="breadcrumb">
@@ -19,44 +17,43 @@
       Formulario
     </div>
     <div class="card-body">
-      
-      <form id="form-paso-1" class="formulario" action="{% url 'registrar_persona' %}" method="POST" >
+      <form id="form-paso-1" class="formulario" action="{% url 'actualizar_persona'  code=persona.codigo%}" method="POST" >
         {% csrf_token %}
         <div class="form-group">
           <label for="id_nombre" class="form-label">Nombre</label>
-          <input type="text" id="id_nombre_persona" name="nombre_persona" maxlength="50" required class="form-control"  value={{persona.nombre}}>
+          <input type="text" id="id_nombre_persona" name="nombre_persona" maxlength="50" required class="form-control" value="{{persona.nombre}}">
         </div>
         <div class="form-group">
           <label for="id_tipo_documento" class="form-label">tipo_documento:</label>
           <select id="id_tipo_documento" name="tipo_documento" required class="form-control">
           {% for doc in tipo_documento %}
-          <option value="{{doc}}">{{doc}}</option>
+          <option value="{{doc.id}}">{{doc.tipo_documento}}</option>
           
           {% endfor %}
           </select>
         </div>
         <div class="form-group">
           <label for="id_nombre" class="form-label">Numero documento</label>
-          <input type="text" id="id_nombre" name="numero_documento" maxlength="50" required class="form-control" value={{persona.numero}}>
+          <input type="text" id="id_nombre" name="numero_documento" maxlength="50" required class="form-control" value="{{persona.numero}}">
         </div>
         <div class="form-group">
           <label for="id_direccion" class="form-label">Descripcion</label>
-          <input type="text" id="id_direccion" name="descripcion" maxlength="70" required class="form-control" value=''>
+          <input type="text" id="id_direccion" name="descripcion" maxlength="70" required class="form-control" value="{{persona.descripcion}}">
         </div>
         
         <div class="form-group">
           <label for="id_tipo_documento" class="form-label">Empresa</label>
           <select id="id_tipo_documento" name="empresa" required class="form-control">
           {% for empresa in empresas %}
-          <option value="{{empresa}}">{{empresa}}</option>
+          <option value="{{empresa.codigo}}">{{empresa.nombre}}</option>
           
           {% endfor %}
           </select>
         </div>
-
+    
         <button type="submit" class="btn btn-primary btn-siguiente" data-actual="form-paso-1" data-siguiente="form-paso-2">submit</button>
      
     </div>
   </div>
 </div>
-{% endblock  %}
+{% endblock  %}    

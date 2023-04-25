@@ -25,7 +25,7 @@
           <select id="id_tipo_documento" name="empresa" required class="form-control">
           {% for empresa in empresas %}
           
-          <option value="{{empresa}}"> {{empresa}} </option>
+          <option value="{{empresa.codigo}}"> {{empresa.nombre}} </option>
           
           {% endfor %}
           </select>
@@ -44,7 +44,7 @@
           <select id="id_tipo_documento" name="propietario" required class="form-control">
           {% for persona in personas %}
           
-          <option value="{{persona}}"> {{persona}} </option>
+          <option value="{{persona.codigo}}"> {{persona.nombre}} </option>
           
           {% endfor %}
           </select>
@@ -55,7 +55,7 @@
           <select id="id_tipo_documento" name="modelo" required class="form-control">
           {% for modelo in modelos %}
           
-          <option value="{{modelo}}"> {{modelo}} </option>
+          <option value="{{modelo.codigo}}"> {{modelo.descripcion}} </option>
           
           {% endfor %}
           </select>
@@ -70,7 +70,7 @@
           <select id="id_tipo_documento" name="conductor" required class="form-control">
           {% for persona in personas %}
           
-          <option value="{{persona}}"> {{persona}} </option>
+          <option value="{{persona.codigo}}"> {{persona.nombre}} </option>
           
           {% endfor %}
           </select>

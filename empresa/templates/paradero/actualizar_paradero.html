@@ -9,7 +9,7 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="{% url 'view_cliente' %}">Home</a></li>
-      <li class="breadcrumb-item active" aria-current="page">Registrar Empresa</li>
+      <li class="breadcrumb-item active" aria-current="page">Registrar Paradero</li>
     </ol>
 </nav>
 <div class="container">
@@ -18,23 +18,11 @@
       Formulario
     </div>
     <div class="card-body">
-      <form id="form-paso-1" class="formulario" action="{% url 'create_empresa' %}" method="POST" >
+      <form id="form-paso-1" class="formulario" action="{% url 'create_paradero' %}" method="POST" >
         {% csrf_token %}
         <div class="form-group">
           <label for="id_nombre" class="form-label">Nombre:</label>
           <input type="text" id="id_nombre" name="nombre" maxlength="50" required class="form-control">
-        </div>
-        <div class="form-group">
-          <label for="id_direccion" class="form-label">Dirección:</label>
-          <input type="text" id="id_direccion" name="direccion" maxlength="70" required class="form-control">
-        </div>
-        <div class="form-group">
-          <label for="id_flota" class="form-label">Flota:</label>
-          <input type="number" id="id_flota" name="flota" required class="form-control">
-        </div>
-        <div class="form-group">
-          <label for="id_correo_electronico" class="form-label">Correo electrónico:</label>
-          <input type="email" id="id_correo_electronico" name="correo_electronico" maxlength="254" required class="form-control">
         </div>
         <div class="form-group">
           <label for="id_numero_resolucion" class="form-label">Número de resolución:</label>
@@ -45,18 +33,9 @@
           <input type="date" id="id_fecha_resolucion" name="fecha_resolucion" required class="form-control">
         </div>
         
-        <div class="form-group">
-          <label for="f" class="form-label">Federacion</label>
-          <select id="id_tipo_documento" name="federacion" required class="form-control">
-          {% for federacion in federaciones %}
-          <option value="{{federacion}}">{{federacion}}</option>
-          
-          {% endfor %}
-          </select>
-        </div>
+     
         <button type="submit" class="btn btn-primary btn-siguiente" data-actual="form-paso-1" data-siguiente="form-paso-2">crear</button>
     </div>
-    </form>
   </div>
 </div>
-{% endblock  %}
+{% endblock  %}      

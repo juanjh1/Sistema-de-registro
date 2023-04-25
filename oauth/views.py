@@ -6,7 +6,6 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 import datetime
 import uuid
-
 from django.utils import timezone
 
 # Create your views here.

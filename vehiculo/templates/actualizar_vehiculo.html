@@ -2,8 +2,6 @@
 
 {% load static %}
 
-
-
 {% block page %}
 
 <nav aria-label="breadcrumb">
@@ -18,60 +16,62 @@
       Formulario
     </div>
     <div class="card-body">
-      <form id="form-paso-1" class="formulario" action="{% url 'create_vehiculo' %}" method="POST" >
+      <form id="form-paso-1" class="formulario" action="{% url 'actualizar_vehiculo' code=vehiculo.codigo %}" method="POST">
         {% csrf_token %}
         <div class="form-group">
-          <label for="id_tipo_documento" class="form-label">empresa</label>
+          <label for="id_tipo_documento" class="form-label">Empresa</label>
           <select id="id_tipo_documento" name="empresa" required class="form-control">
           {% for empresa in empresas %}
-          
-          <option value="{{empresa}}"> {{empresa}} </option>
-          
-          
+            {% if empresa.codigo == vehiculo.empresa.codigo %}
+              <option value="{{ empresa.codigo}}" selected> {{ empresa.nombre }} </option>
+            {% else %}
+              <option value="{{ empresa.codigo }}"> {{ empresa.nombre }} </option>
+            {% endif %}
           {% endfor %}
           </select>
         </div>
         <div class="form-group">
           <label for="id_nombre" class="form-label">Numero de placa:</label>
-          <input type="text" id="id_nombre" name="n_placa" maxlength="50" required class="form-control" value={{vehiculo.numero_placa}}>
+          <input type="text" id="id_nombre" name="n_placa" maxlength="50" required class="form-control" value="{{ vehiculo.numero_placa }}">
         </div>
         <div class="form-group">
-          
-          <label for="id_direccion" class="form-label">numeracion</label>
-          <input type="text" id="id_direccion" name="numeracion" maxlength="70" required class="form-control" value={{vehiculo.numeracion}}>
+          <label for="id_direccion" class="form-label">Numeración</label>
+          <input type="text" id="id_direccion" name="numeracion" maxlength="70" required class="form-control" value="{{ vehiculo.numeracion }}">
         </div>
         <div class="form-group">
-          <label for="id_tipo_documento" class="form-label">propietario</label>
+          <label for="id_tipo_documento" class="form-label">Propietario</label>
           <select id="id_tipo_documento" name="propietario" required class="form-control">
           {% for persona in personas %}
-          
-          <option value="{{persona}}"> {{persona}} </option>
-          
+            {% if persona.codigo == vehiculo.propietario.id %}
+              <option value="{{ persona.codigo }}" selected> {{ persona.nombre }} </option>
+            {% else %}
+              <option value="{{ persona.codigo }}"> {{ persona.nombre }} </option>
+            {% endif %}
           {% endfor %}
           </select>
         </div>
-       
         <div class="form-group">
-          <label for="id_tipo_documento" class="form-label">modelo</label>
+          <label for="id_tipo_documento" class="form-label">Modelo</label>
           <select id="id_tipo_documento" name="modelo" required class="form-control">
           {% for modelo in modelos %}
-          
-          <option value="{{modelo}}"> {{modelo}} </option>
-          
+            {% if modelo.codigo == vehiculo.modelo.codigo %}
+              <option value="{{ modelo.codigo }}" selected> {{ modelo.descripcion }} </option>
+            {% else %}
+              <option value="{{ modelo.codigo }}"> {{ modelo.descripcion }} </option>
+            {% endif %}
           {% endfor %}
           </select>
         </div>
         <div class="form-group">
-          <label for="id_fecha_resolucion" class="form-label">Año fabricacion:</label>
-          <input type="date" id="" name="ano_fabricacion" required class="form-control">
+          <label for="id_fecha_resolucion" class="form-label">Año fabricación:</label>
+          <input type="date" id="id_fecha_resolucion" name="ano_fabricacion" required class="form-control" value="{{ vehiculo.ano_fabricacion }}">
         </div>
-        
         <div class="form-group">
           <label for="id_tipo_documento" class="form-label">Conductor</label>
           <select id="id_tipo_documento" name="conductor" required class="form-control">
           {% for persona in personas %}
           
-          <option value="{{persona.id}}"> {{persona.nombre}} </option>
+          <option value="{{persona.codigo}}"{% if vehiculo.conductor.codigo == persona.codigo %} selected {% endif %}> {{persona.nombre}} </option>
           
           {% endfor %}
           </select>

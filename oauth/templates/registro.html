@@ -1,49 +1,98 @@
-{% extends 'baseoaut.html' %}
-{%load static %}
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
 
-{%block title%} Register {%endblock%}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
+    <title>SB Admin 2 - Register</title>
 
-{% block content%}
-<div style="float:left; width:45%;">
+    <!-- Custom fonts for this template-->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
 
-</div>
+    <!-- Custom styles for this template-->
+    <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
 
-<div class="card" style="float:right; width:50%;">
-  <div class="card-body">
+</head>
 
-  <h2 class="px-3">Register</h2>
+<body class="bg-gradient-primary">
 
-  <form action="{%url 'register' %}" method="post">    {% csrf_token %}
+    <div class="container">
 
-    <div class="input-group form-group py-3 px-3">
-        <span class="input-group-text">First and last name</span>
-        <input type="text" aria-label="First name" class="form-control" name="name"  required>
-        <input type="text" aria-label="Last name" class="form-control" name="lastname"  required>
-      </div>
-  
-    <div class="input-group flex-nowrap form-group py-2 px-3">
-        <span class="input-group-text" id="addon-wrapping">@</span>
-        <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping" name="username" required  maxlength='30'>
-      </div>
-  
-      <div class="mb-3 form-group py-1 px-3">
-        <label for="exampleFormControlInput1" class="form-label">Email address</label>
-        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" name='email'  required>
-      </div>
-  
-      <div class="mb-2 row form-group py-1 px-3">
-        <label for="inputPassword" class="col-sm-0 col-form-label">Password</label>
-        <div class="col-sm-8">
-          <input type="password" class="form-control" id="inputPassword" name='password'  required  minlength='6'  maxlength='10'>
+        <div class="card o-hidden border-0 shadow-lg my-5">
+            <div class="card-body p-0">
+                <!-- Nested Row within Card Body -->
+                <div class="row">
+                    <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+                    <div class="col-lg-7">
+                        <div class="p-5">
+                            <div class="text-center">
+                                <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+                            </div>
+                           
+                            <form class="user" method='POST' action="{%url 'register' %}" >
+                                {% csrf_token %}
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <input type="text" class="form-control form-control-user" id="exampleFirstName"
+                                            placeholder="name" name="name">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control form-control-user" id="exampleLastName"
+                                            placeholder="lastaname" name='lastname'>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" class="form-control form-control-user" id="exampleInputEmail"
+                                        placeholder="Emai" name='email'>
+                                </div>
+                                <div class="form-group">
+                                  <input type="text" class="form-control form-control-user" id="exampleInputEmail"
+                                      placeholder="Username" name='username'>
+                              </div>
+                              <div class="form-group">
+                                <input type="password" class="form-control form-control-user" id="exampleInputEmail"
+                                    placeholder="Password" name='password'>
+                            </div>
+                                
+                            
+                            <div class="col-12 form-group py-3">
+                                <button class="btn btn-primary btn-user btn-block" type="submit">Crear cuenta</button>
+                            </div>
+                              
+                            </form>
+                            <hr>
+                            <div class="text-center">
+                                <a class="small" href="forgot-password.html">Forgot Password?</a>
+                            </div>
+                            <div class="text-center">
+                                <a class="small" href="login.html">Already have an account? Login!</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-  
-        <div class="col-12 form-group py-4 px-3">
-            <button class="btn btn-primary" type="submit">Submit form</button>
-        </div>
 
-  </form>
-  </div>   
-</div>
+    </div>
 
-{% endblock %}
+    <!-- Bootstrap core JavaScript-->
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
+
+</body>
+
+</html>
