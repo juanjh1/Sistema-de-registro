@@ -53,6 +53,7 @@ def registar (request):
 def view_pesonas(request):
 
     context = {
+        'user': User.objects.filter(id=request.user.id).first(),
         'personas' :models.Persona.objects.filter().all()
     }
     

@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from . import models
+from  django.contrib.auth.models import User
 import datetime
 import uuid
 # Create your views here.
@@ -46,6 +47,7 @@ def view_empresas(request):
     
     
     context = {
+    'user': User.objects.filter(id=request.user.id).first(),
     'empresas': models.Empresa.objects.filter().all()
     }
     return render(request, 'view_empresa.html', context)
@@ -179,6 +181,7 @@ def delete_paradero(request, code):
 def empresa_detail(request, codigo):
 
     context = {
+         'user': User.objects.filter(id=request.user.id).first(),
          'empresa': models.Empresa.objects.filter(codigo=codigo).first(),
          'paradero_empresa': models.Empresa_paradero.objects.filter(empresa=codigo)
     }

@@ -56,9 +56,13 @@
                           <td>{{empresa.fecha_resolucion}}</td>
 
                           <td>{{empresa.numero_resolucion}}</td>
+                          {% if user == empresa.usuario.id %}
 
                           <td><a href="{% url 'eliminar_empresa' code=empresa.codigo   %}" class="btn btn-danger"><i class=" fas fa-solid fa-x" style="color: #ffffff;"></i></a>  <a href="{% url 'actualizar_empresa' code=empresa.codigo %}"class="btn btn-primary">Update</a>
                             <a href="{% url 'create_licencia' code=empresa.codigo %}"class="btn btn-primary">licencia</a></td>
+                          {% else %}
+                          <td></td>
+                          {% endif %}
                       </tr>
                     {% endfor %}
                   </tbody>

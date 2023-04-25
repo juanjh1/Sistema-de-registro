@@ -52,9 +52,12 @@
                       <td>{{persona.tipodocumento}}</td>
                       <td>{{persona.numero}}</td>
 
-                      
+                      {% if user == empresa.usuario.id %}
 
                       <td><a href="{% url 'delete_persona' code=persona.codigo %}" class="btn btn-danger">Delete</a>  <a href="{% url 'view_actualizar_persona' code=persona.codigo %}"class="btn btn-primary">Update</a></td>
+                      {%else%}
+                      <td> </td>
+                      {%endif%}
                       </tr>
                   </tr>
                 {% endfor %}

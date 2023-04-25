@@ -17,7 +17,9 @@
         <li class="list-group-item"><strong>Fecha de creación:</strong> {{ empresa.fecha_creacion }}</li>
         <li class="list-group-item"><strong>Fecha de actualización:</strong> {{ empresa.fecha_actualizacion }}</li>
       </ul>
+      {% if user == empresa.usuario.id %}
       <a href="{% url 'actualizar_empresa' code=empresa.codigo %}" class="btn btn-primary mt-3">Actualizar perfil</a>
+      {% endif %}
     </div>
     <hr>
     <hr>
@@ -40,7 +42,9 @@
         </ul>
       {% else %}
         <p>No se ha registrado ninguna licencia para esta empresa.</p>
+        {% if user == empresa.usuario.id %}
         <a href="{% url 'create_licencia' code=empresa.codigo %}" class="btn btn-primary mt-3">Agregar licencia</a>
+      {% endif %}
       {% endif %}
     </div>
     
@@ -82,7 +86,9 @@
         <p>No hay paraderos registrados.</p>
       {% endif %}
       
+      {% if user == empresa.usuario.id %}
       <a href="{% url 'paradero_empresa' code=empresa.codigo %}" class="btn btn-primary mt-3">Agregar paradero</a>
+      {% endif %}
     </div>
     <hr>
     <hr>
@@ -100,7 +106,9 @@
       {% empty %}
       {% endfor %}
     {% else %}
+      {% if user == empresa.usuario.id %}
       <li class="list-group-item">Agregar licencia</li>
+      {% endif %}
     {% endif %}
   </ul>
  
