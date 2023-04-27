@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from . import models
 from empresa.models import Empresa
-
+from  django.contrib.auth.models import User
 from persona.models import Persona
 import uuid
 # Create your views here.
@@ -35,6 +35,7 @@ def  create_vehiculo(request):
     propietario = Persona.objects.filter(codigo=propietario_uuid).first()
     conductor = Persona.objects.filter(codigo=conductor_uuid).first()
     modelo = models.Modelo.objects.filter(codigo=modelo_uuid).first()
+    usuario = User.objects.filter(id=request.user.id).first()
 
     models.Vehiculo.objects.create(
         empresa=empresa,
@@ -43,7 +44,8 @@ def  create_vehiculo(request):
         propietario=propietario,
         modelo=modelo,
         año=ano_fabricacion,
-        conductor=conductor
+        conductor=conductor,
+        usuario= usuario
     )
     return redirect('/home/')
   

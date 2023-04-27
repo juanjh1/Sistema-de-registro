@@ -13,16 +13,6 @@
     </ol>
 
   
-      {% for empresa in empresas %}
-      <ol class="breadcrumb">
-
-        <li class="breadcrumb-item"> {{empresa.nombre}} </li>
-          <a href="{% url 'empresa_acutalizar' code=empresa.codigo %}"class="btn btn-primary">Update</a>
-          <a href="{% url 'empresa_eliminar' code=empresa.codigo   %}" class="btn btn-danger">Delete</a>
-        
-         
-      </ol>
-      {% endfor %}
      
    
     
@@ -76,9 +66,12 @@
 
                           
                           
-    
+                          {% if user.id == vehiculo.usuario.id %}
                           <td><a href="{% url 'delete_vehiculo' code=vehiculo.codigo%}" class="btn btn-danger">Delete</a>  <a href="{% url 'actualizar_vehiculo_from'  code=vehiculo.codigo%}"class="btn btn-primary">Update</a></td>
-                          </tr>
+                          {% else %}
+                          <td> </td>
+                          {% endif %}
+                        </tr>
                       </tr>
                     {% endfor %}
                   </tbody>

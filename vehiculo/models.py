@@ -2,7 +2,7 @@ from django.db import models
 from empresa.models import Empresa
 from persona.models import Persona
 from django.core.validators import MinValueValidator, MaxValueValidator
-import datetime
+from  django.contrib.auth.models import User
 from uuid import uuid4
 
 class Marca(models.Model):
@@ -39,7 +39,7 @@ class Vehiculo(models.Model):
     modelo = models.ForeignKey(Modelo, on_delete=models.CASCADE)
     año = models.IntegerField()
     conductor = models.ForeignKey(Persona, on_delete=models.CASCADE, related_name='vehiculo_conducido')
-
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
 
 class Estado(models.Model):
     codigo = models.UUIDField(primary_key=True, default=uuid4, editable=False)
@@ -54,3 +54,4 @@ class Vehiculo_Estado(models.Model):
     estado = models.ForeignKey(Estado, on_delete=models.CASCADE)
     fecha = models.DateField(null=False)
     numero_resolucion = models.CharField(max_length=50)
+    

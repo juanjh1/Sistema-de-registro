@@ -12,6 +12,7 @@ urlpatterns = [
     path('regitrar/paradero', views.create_paradero, name='create_paradero'),
     path('paradero', views.view_paradero, name='paraderos'),
     path('eliminar/paradero/<uuid:code>/', views.delete_paradero, name='eliminar_paradero'),
+     path('actualizar/paradero/<uuid:code>/', views.actualizar_paradero, name='actualizar_paradero'),
     path('detail/empresa/<uuid:codigo>/', views.empresa_detail, name='detail_empresa' ),
     path('registar/paradero_empresa/<uuid:code>/ ', views.paradero_empresa, name='paradero_empresa')
 ] 

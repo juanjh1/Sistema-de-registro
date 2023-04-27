@@ -143,12 +143,14 @@ def create_paradero(request):
         nombre = request.POST.get('nombre')
         fecha_resolucion = request.POST.get('fecha_resolucion')
         numero_resolucion = request.POST.get('numero_resolucion')
+        usuario = User.objects.filter(id=request.user.id).first()
 
         models.Paradero.objects.create(
 
             nombre = nombre,
             numero_resolucion = numero_resolucion,
-            fecha_resolcuion = fecha_resolucion
+            fecha_resolcuion = fecha_resolucion,
+            usuario= usuario
 
         )
    
@@ -224,7 +226,7 @@ def paradero_empresa(request, code):
 def actualizar_paradero(request,code):
     
     context ={
-
+        'paradero': models.Paradero.objects.filter(codigo=code).first()
     }
 
     return render(request,'paradero/actualizar_paradero.html' , context)

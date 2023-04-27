@@ -57,6 +57,7 @@ class Paradero(models.Model):
     fecha_resolcuion = models.DateField()
     fecha_creacion = models.DateTimeField( auto_now=True)
     fecha_actualizacion = models.DateTimeField( auto_now=True)
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
 
 class Empresa_paradero(models.Model):
     empresa = models.ForeignKey(Empresa ,on_delete=models.CASCADE)
