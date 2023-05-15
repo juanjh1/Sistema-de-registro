@@ -14,5 +14,6 @@ urlpatterns = [
     path('eliminar/paradero/<uuid:code>/', views.delete_paradero, name='eliminar_paradero'),
      path('actualizar/paradero/<uuid:code>/', views.actualizar_paradero, name='actualizar_paradero'),
     path('detail/empresa/<uuid:codigo>/', views.empresa_detail, name='detail_empresa' ),
-    path('registar/paradero_empresa/<uuid:code>/ ', views.paradero_empresa, name='paradero_empresa')
+    path('registar/paradero_empresa/<uuid:code>/ ', views.paradero_empresa, name='paradero_empresa'),
+    path( 'eliminar/<uuid:code>/paradero/', views.eliminar_paradero_empresa, name='eliminar_paradero_empresa')
 ] 

@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     "persona",
     "oauth",
     "cliente",
+    "csv"
 
 
     #Terceros

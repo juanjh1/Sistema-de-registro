@@ -9,6 +9,7 @@ urlpatterns = [
   path('listado-personas/', views.view_pesonas, name='view_personas'),
   path('eliminar/<uuid:code>', views.delete_persona, name='delete_persona'),
   path('actualizar/<uuid:code>/form', views.view_actualizar, name='view_actualizar_persona'),
-   path('actualizar/<uuid:code>', views.actualizar, name='actualizar_persona')
+   path('actualizar/<uuid:code>', views.actualizar, name='actualizar_persona'),
+
 
 ]

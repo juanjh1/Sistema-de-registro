@@ -17,9 +17,7 @@
    
     
     <div class="card shadow mb-4">
-      <div class="card-header py-3">
-          <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
-      </div>
+     
       <div class="card-body">
           <div class="table-responsive">
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -56,7 +54,7 @@
                   <tbody>
                     {% for vehiculo in vehiculos %}
                       <tr>
-                          <td>{{vehiculo.propietario.nombre}}</td>
+                          <td><a href="{% url 'vehiculo_detail' code=vehiculo.codigo%}">{{vehiculo.propietario.nombre}}</a></td>
                           <td>{{vehiculo.modelo.descripcion}}</td>
                           <td>{{vehiculo.empresa.nombre}}</td>
                           <td>{{vehiculo.conductor.nombre}}</td>
@@ -69,7 +67,7 @@
                           {% if user.id == vehiculo.usuario.id %}
                           <td><a href="{% url 'delete_vehiculo' code=vehiculo.codigo%}" class="btn btn-danger">Delete</a>  <a href="{% url 'actualizar_vehiculo_from'  code=vehiculo.codigo%}"class="btn btn-primary">Update</a></td>
                           {% else %}
-                          <td> </td>
+                          <td> </td> 
                           {% endif %}
                         </tr>
                       </tr>

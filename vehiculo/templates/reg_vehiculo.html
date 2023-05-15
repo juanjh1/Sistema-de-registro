@@ -2,82 +2,103 @@
 
 {% load static %}
 
-
-
 {% block page %}
 
 <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
+  <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="{% url 'view_cliente' %}">Home</a></li>
       <li class="breadcrumb-item active" aria-current="page">Registrar Vehiculos</li>
-    </ol>
+  </ol>
 </nav>
+
 <div class="container">
+  
   <div class="card my-4">
-    <div class="card-header">
-      Formulario
-    </div>
-    <div class="card-body">
-      <form id="form-paso-1" class="formulario" action="{% url 'create_vehiculo' %}" method="POST" >
-        {% csrf_token %}
-        <div class="form-group">
-          <label for="id_tipo_documento" class="form-label">empresa</label>
-          <select id="id_tipo_documento" name="empresa" required class="form-control">
-          {% for empresa in empresas %}
-          
-          <option value="{{empresa.codigo}}"> {{empresa.nombre}} </option>
-          
-          {% endfor %}
-          </select>
+      <div class="card-header">
+        <h4 class="text-center">Registrar Vehículos</h4>
+      </div>
+      <div class="card-body">
+          <form id="form-paso-1" class="formulario" action="{% url 'create_vehiculo' %}" method="POST" >
+
+              {% csrf_token %}
+
+              <div class="form-group row">
+                  <label  class="col-sm-2 col-form-label">Empresa:</label>
+                  <div class="col-sm-10">
+                      <select id="" name="empresa" required class="form-control">
+                          {% for empresa in empresas %}
+                              <option value="{{empresa.codigo}}">{{empresa.nombre}}</option>
+                          {% endfor %}
+                      </select>
+                  </div>
+              </div>
+              <div class="form-group row">
+                <label  class="col-sm-2 col-form-label">Año fabricacion:</label>
+               
+                <div class="col-sm-10">
+                  <input  type="date" name="ano_fabricacion" required class="form-control">
+              </div>
+            </div>
+              
+
+              <div class="form-group row">
+                  <label for="id_nombre" class="col-sm-2 col-form-label">Numero de placa:</label>
+                  <div class="col-sm-10">
+                      <input type="number"  name="n_placa" maxlength="50" required class="form-control">
+                  </div>
+              </div>
+
+              <div class="form-group row">
+                  <label for="id_direccion" class="col-sm-2 col-form-label">Numeración:</label>
+                  <div class="col-sm-10">
+                      <input type="number" id="id_direccion" name="numeracion" maxlength="70" required class="form-control">
+                  </div>
+              </div>
+
+              <div class="form-group row">
+                  <label  class="col-sm-2 col-form-label">Propietario:</label>
+                  <div class="col-sm-10">
+                      <select id="" name="propietario" required class="form-control">
+                          {% for persona in personas %}
+                              <option value="{{persona.codigo}}">{{persona.nombre}}</option>
+                          {% endfor %}
+                      </select>
+                  </div>
+              </div>
+
+              <div class="form-group">
+                <label  class="form-label">Conductor</label>
+                <select id="" name="conductor" required class="form-control">
+                {% for persona in personas %}
+                
+                <option value="{{persona.codigo}}"> {{persona.nombre}} </option>
+                
+                {% endfor %}
+                </select>
+              </div>
+              <div class="form-group">
+                <label  class="form-label">Estado</label>
+                <select id="" name="estado" required class="form-control">
+                {% for estado in estados %}
+                
+                <option value="{{estado.codigo}}"> {{estado.descripcion}} </option>
+                
+                {% endfor %}
+                </select>
+              </div>
+              <div class="form-group">
+                <label  class="form-label">Estado</label>
+                <select  name="modelo" required class="form-control">
+                {% for modelo in modelos %}
+                
+                <option value="{{modelo.codigo}}"> {{modelo.descripcion}} </option>
+                
+                {% endfor %}
+                </select>
+              </div>
+              <button type="submit" class="btn btn-primary btn-siguiente" data-actual="form-paso-1" data-siguiente="form-paso-2">enviar</button>
+            </form>
+          </div>
         </div>
-        <div class="form-group">
-          <label for="id_nombre" class="form-label">Numero de placa:</label>
-          <input type="text" id="id_nombre" name="n_placa" maxlength="50" required class="form-control">
-        </div>
-        <div class="form-group">
-          
-          <label for="id_direccion" class="form-label">numeracion</label>
-          <input type="text" id="id_direccion" name="numeracion" maxlength="70" required class="form-control">
-        </div>
-        <div class="form-group">
-          <label for="id_tipo_documento" class="form-label">propietario</label>
-          <select id="id_tipo_documento" name="propietario" required class="form-control">
-          {% for persona in personas %}
-          
-          <option value="{{persona.codigo}}"> {{persona.nombre}} </option>
-          
-          {% endfor %}
-          </select>
-        </div>
-       
-        <div class="form-group">
-          <label for="id_tipo_documento" class="form-label">modelo</label>
-          <select id="id_tipo_documento" name="modelo" required class="form-control">
-          {% for modelo in modelos %}
-          
-          <option value="{{modelo.codigo}}"> {{modelo.descripcion}} </option>
-          
-          {% endfor %}
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="id_fecha_resolucion" class="form-label">Año fabricacion:</label>
-          <input type="date" id="" name="ano_fabricacion" required class="form-control">
-        </div>
-        
-        <div class="form-group">
-          <label for="id_tipo_documento" class="form-label">Conductor</label>
-          <select id="id_tipo_documento" name="conductor" required class="form-control">
-          {% for persona in personas %}
-          
-          <option value="{{persona.codigo}}"> {{persona.nombre}} </option>
-          
-          {% endfor %}
-          </select>
-        </div>
-        <button type="submit" class="btn btn-primary btn-siguiente" data-actual="form-paso-1" data-siguiente="form-paso-2">enviar</button>
-     
-    </div>
-  </div>
-</div>
-{% endblock  %}
+      </div>
+      {% endblock %}

@@ -4,6 +4,7 @@ from empresa.models import Empresa
 from  django.contrib.auth.models import User
 from persona.models import Persona
 import uuid
+from django.shortcuts import render, get_object_or_404
 # Create your views here.
 
 
@@ -17,6 +18,7 @@ def  create_vehiculo(request):
     empresa = request.POST.get('empresa')
     ano_fabricacion = request.POST.get('ano_fabricacion')
     conductor = request.POST.get('conductor')
+    estado = request.POST.get('estado')
 
     ano_fabricacion =int(ano_fabricacion[0:3]) 
 
@@ -28,13 +30,14 @@ def  create_vehiculo(request):
     
     conductor_uuid = uuid.UUID(conductor)
 
-   
-    modelo_uuid = uuid.UUID(modelo)
-
+    estado_uuid = uuid.UUID(estado)
+    
+    estado=  models.Estado.objects.filter(codigo=estado_uuid).first()
     empresa = Empresa.objects.filter(codigo=empresa_uuid).first()
     propietario = Persona.objects.filter(codigo=propietario_uuid).first()
     conductor = Persona.objects.filter(codigo=conductor_uuid).first()
-    modelo = models.Modelo.objects.filter(codigo=modelo_uuid).first()
+    modelo = models.Modelo.objects.filter(codigo=modelo).first()
+
     usuario = User.objects.filter(id=request.user.id).first()
 
     models.Vehiculo.objects.create(
@@ -45,7 +48,8 @@ def  create_vehiculo(request):
         modelo=modelo,
         año=ano_fabricacion,
         conductor=conductor,
-        usuario= usuario
+        usuario= usuario,
+        estado= estado
     )
     return redirect('/home/')
   
@@ -53,7 +57,9 @@ def  create_vehiculo(request):
         'empresas':Empresa.objects.all(),
         'personas':Persona.objects.all(),
         'modelos':models.Modelo.objects.all(),
-        'marcas': models.Marca.objects.all()}
+        'marcas': models.Marca.objects.all(),
+        'estados': models.Estado.objects.all()}
+  
   return render(request, 'reg_vehiculo.html', context)
 
 
@@ -83,7 +89,8 @@ def view_actualizar(request,code):
         'empresas':Empresa.objects.all(),
         'personas':Persona.objects.all(),
         'modelos':models.Modelo.objects.all(),
-        'marcas': models.Marca.objects.all()
+        'marcas': models.Marca.objects.all(),
+        'estados': models.Estado.objects.all()
     }
   
   return render(request, 'actualizar_vehiculo.html', context)
@@ -111,12 +118,14 @@ def actualizar(request, code):
     conductor_uuid = uuid.UUID(conductor)
 
     
-    modelo_uuid = uuid.UUID(modelo)
+
 
     empresa = Empresa.objects.filter(codigo=empresa_uuid).first()
     propietario = Persona.objects.filter(codigo=propietario_uuid).first()
     conductor = Persona.objects.filter(codigo=conductor_uuid).first()
-    modelo = models.Modelo.objects.filter(codigo=modelo_uuid).first()
+    modelo = models.Modelo.objects.filter(codigo=modelo).first()
+
+    estado = models.Estado.objects.filter(codigo=modelo).first()
 
     vehiculo = models.Vehiculo.objects.filter(codigo = code).first()
 
@@ -132,3 +141,7 @@ def actualizar(request, code):
     vehiculo.save()
 
     return redirect('/home/')
+
+def vehiculo_detail(request, code):
+    vehiculo = get_object_or_404(models.Vehiculo, pk=code)
+    return render(request, 'vehiculo_detail.html', {'vehiculo': vehiculo})

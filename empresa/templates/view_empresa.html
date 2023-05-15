@@ -2,78 +2,96 @@
 
 {% load static %}
 
-
-
 {% block page %}
+    <div class="container-fluid">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'view_cliente' %}">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Empresas</li>
+            </ol>
+        </nav>
 
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="{% url 'view_cliente' %}">Home</a></li>
-      <li class="breadcrumb-item active" aria-current="page">Empresas</li>
-    </ol>
-  </nav>
-
-    <div class="card shadow mb-4">
-      <div class="card-header py-3">
-          <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
-      </div>
-      <div class="card-body">
-          <div class="table-responsive">
-              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                  <thead>
-                      <tr>
-                          <th>Nombre</th>
-                          <th>Direccion</th>
-                          <th>Flota</th>
-                          <th>Email</th>
-                          <th>N.Resolucion</th>
-                          <th>Fecha de Resolucion</th>
-                          <th>Federacion</th>
-                          <th>Acciones</th>
-                      </tr>
-                  </thead>
-                  <tfoot>
-                    <tr>
-                      <th>Nombre</th>
-                      <th>Direccion</th>
-                      <th>Flota</th>
-                      <th>Email</th>
-                      <th>N.Resolucion</th>
-                      <th>Fecha de Resolucion</th>
-                      <th>Federacion</th>
-                      <th>Acciones</th>
-
-                  </tr>
-                  </tfoot>
-                  <tbody>
-                    {% for empresa in empresas %}
-                      <tr>
-                        <td><a href="{% url 'detail_empresa' codigo=empresa.codigo %}"> {{empresa.nombre}}</a></td> 
-                          <td>{{empresa.direccion}}</td>
-                          <td>{{empresa.flota}}</td>
-                          <td>{{empresa.correo_electronico}}</td>
-                          <td>{{empresa.numero_resolucion}}</td>
-                          <td>{{empresa.fecha_resolucion}}</td>
-
-                          <td>{{empresa.numero_resolucion}}</td>
-                          {% if user == empresa.usuario %}
-
-                          <td><a href="{% url 'eliminar_empresa' code=empresa.codigo   %}" class="btn btn-danger"><i class=" fas fa-solid fa-x" style="color: #ffffff;"></i></a>  <a href="{% url 'actualizar_empresa' code=empresa.codigo %}"class="btn btn-primary">Update</a>
-                            <a href="{% url 'create_licencia' code=empresa.codigo %}"class="btn btn-primary">licencia</a></td>
-                          {% else %}
-                          <td></td>
-                          {% endif %}
-                      </tr>
-                    {% endfor %}
-                  </tbody>
-              </table>
-          </div>
-      </div>
-  </div>
-      
-    
-     
-  
-  
-  
-{% endblock  %}
+        <div class="card shadow mb-4">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Dirección</th>
+                                <th>Flota</th>
+                                <th>Correo Electrónico</th>
+                                <th>Número de Resolución</th>
+                                <th>Fecha de Resolución</th>
+                                <th>Federación</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Dirección</th>
+                                <th>Flota</th>
+                                <th>Correo Electrónico</th>
+                                <th>Número de Resolución</th>
+                                <th>Fecha de Resolución</th>
+                                <th>Federación</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                          {% for empresa in empresas %}
+                          <tr>
+                            <td><a href="{% url 'detail_empresa' codigo=empresa.codigo %}">{{ empresa.nombre }}</a></td>
+                            <td>{{ empresa.direccion }}</td>
+                            <td>{{ empresa.flota }}</td>
+                            <td>{{ empresa.correo_electronico }}</td>
+                            <td>{{ empresa.numero_resolucion }}</td>
+                            <td>{{ empresa.fecha_resolucion }}</td>
+                            <td>{{ empresa.federacion }}</td>
+                            <td>
+                              {% if user == empresa.usuario %}
+                              <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                  Acciones
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                  <a class="dropdown-item" href="{% url 'actualizar_empresa' code=empresa.codigo %}"><i class="fas fa-edit"></i> Editar</a>
+                                  <div class="dropdown-divider"></div>
+                                  <a class="dropdown-item text-danger" href="#" data-toggle="modal" data-target="#eliminar-empresa-{{ empresa.codigo }}"><i class="fas fa-trash"></i> Eliminar</a>
+                                </div>
+                              </div>
+                              {% else %}
+                              -
+                              {% endif %}
+                            </td>
+                          </tr>
+                          
+                          <!-- Modal para eliminar empresa -->
+                          <div class="modal fade" id="eliminar-empresa-{{ empresa.codigo }}" tabindex="-1" role="dialog" aria-labelledby="eliminarEmpresaModal" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="eliminarEmpresaModal">Eliminar empresa</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+                                  <p>¿Está seguro que desea eliminar la empresa "{{ empresa.nombre }}"?</p>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                  <a href="{% url 'eliminar_empresa' code=empresa.codigo %}" class="btn btn-danger"><i class="fas fa-trash"></i> Eliminar</a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

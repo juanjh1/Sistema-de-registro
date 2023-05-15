@@ -2,46 +2,40 @@
 
 {% load static %}
 
-
-
 {% block page %}
-
-<nav aria-label="breadcrumb">
+  <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="{% url 'view_cliente' %}">Home</a></li>
-      <li class="breadcrumb-item active" aria-current="page">Registrar Empresa</li>
+      <li class="breadcrumb-item active" aria-current="page"></li>
     </ol>
-</nav>
-<div class="container">
-  <div class="card my-4">
-    <div class="card-header">
-      Formulario
-    </div>
-    <div class="card-body">
-      <form id="form-paso-1" class="formulario" action="{% url 'create_licencia' code=empresa.codigo %}" method="POST" >
-        {% csrf_token %}
-       
-        <div class="form-group">
-          <label for="id_correo_electronico" class="form-label">Recibo_caja:</label>
-          <input type="text" id="id_correo_electronico" name="Recibo_caja" maxlength="254" required class="form-control">
-        </div>
-        <div class="form-group">
-          <label for="id_numero_resolucion" class="form-label">Número de resolución:</label>
-          <input type="text" id="id_numero_resolucion" name="numero_resolucion" maxlength="100" required class="form-control">
-        </div>
-        
-        <div class="form-group">
-            <label for="id_fecha_resolucion" class="form-label">Fecha inicio:</label>
-            <input type="date" id="id_fecha_resolucion" name="fecha_inicio" required class="form-control">
-          </div>
-        
+  </nav>
+  <div class="container">
+    <div class="card my-4">
+      <div class="card-header">
+        Formulario
+      </div>
+      <div class="card-body">
+        <form id="form-paso-1" class="formulario" action="{% url 'create_licencia' code=empresa.codigo %}" method="POST">
+          {% csrf_token %}
           <div class="form-group">
-            <label for="id_fecha_resolucion" class="form-label">Fecha de final:</label>
-            <input type="date" id="id_fecha_resolucion" name="fecha_final" required class="form-control">
+            <label for="id_recibo_caja" class="form-label">Recibo de caja:</label>
+            <input type="text" id="id_recibo_caja" name="Recibo_caja" maxlength="180" required class="form-control">
           </div>
-       
-        <button type="submit" class="btn btn-primary btn-siguiente" data-actual="form-paso-1" data-siguiente="form-paso-2">crear</button>
+          <div class="form-group">
+            <label for="id_numero_resolucion" class="form-label">Número de resolución:</label>
+            <input type="text" id="id_numero_resolucion" name="numero_resolucion" maxlength="100" required class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="id_fecha_inicial" class="form-label">Fecha inicial:</label>
+            <input type="date" id="id_fecha_inicial" name="fecha_inicial" required class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="id_fecha_final" class="form-label">Fecha final:</label>
+            <input type="date" id="id_fecha_final" name="fecha_final" required class="form-control">
+          </div>
+          <button type="submit" class="btn btn-primary btn-siguiente" data-actual="form-paso-1" data-siguiente="form-paso-2">Crear</button>
+        </form>
+      </div>
     </div>
   </div>
-</div>
-{% endblock  %}
+{% endblock %}

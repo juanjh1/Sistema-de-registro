@@ -2,45 +2,83 @@
 {% load static %}
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>User Profile</title>
-	<!-- Bootstrap CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- Custom Styles -->
+    <style>
+        body {
+            background-image: url("{% static 'img/background.jpg' %}");
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        .card {
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+        .profile-pic {
+            max-height: 200px;
+            object-fit: cover;
+        }
+        .section-header {
+            background-color: #007bff;
+            color: #fff;
+            padding: 20px;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 32px;
+            border-radius: 10px;
+        }
+        .skill-icon {
+            font-size: 48px;
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+        .skill-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
-	<div class="container my-5">
-		<div class="row justify-content-center">
-			<div class="col-md-8">
-				<div class="card">
-					<div class="card-header bg-primary text-white">
-						<h2 class="mb-0">{{ usuario.first_name }} {{ usuario.last_name }}</h2>
-					</div>
-					<div class="card-body">
-						<div class="row">
-							<div class="col-md-4">
-								{% if info_usuario.foto %}
-								<img src="{{ info_usuario.foto.url }}" alt="Profile Picture" class="img-thumbnail">
-								{% else %}
-								<img src="{% static 'img/default.png' %}" alt="" class="img-thumbnail">
-								{% endif %}
-							</div>
-							<div class="col-md-8">
-								<p><strong>Username:</strong> {{ usuario.username }}</p>
-								<p><strong>Email:</strong> {{ usuario.email }}</p>
-								<p><strong>Telefono :</strong> {{ info_usuario.numerotelefonico|default:'' }}</p>
-								<p><strong>Genero:</strong> {{ info_usuario.genero|default:'' }}</p>
-								<p><strong>direccion:</strong> {{ info_usuario.direccion|default:'' }}</p>
-								<p><strong>Age:</strong> {{ info_usuario.fechanacimiento|default:'' }}</p>
-							</div>
-						</div>
-					</div>
-					<div class="card-footer text-right">
-						<a href="" class="btn btn-primary">Update Profile</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h2 class="mb-0">{{ usuario.first_name }} {{ usuario.last_name }}</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                {% if info_usuario.foto %}
+                                <img src="{{ info_usuario.foto.url }}" alt="Profile Picture" class="img-thumbnail profile-pic">
+                                {% else %}
+                                <img src="{% static 'img/default.png' %}" alt="" class="img-thumbnail profile-pic">
+                                {% endif %}
+                            </div>
+                            <div class="col-md-8">
+                                <p><strong>Username:</strong> {{ usuario.username }}</p>
+                                <p><strong>Email:</strong> {{ usuario.email }}</p>
+                                <p><strong>Telefono :</strong> {{ info_usuario.numerotelefonico|default:'' }}</p>
+                                <p><strong>Genero:</strong> {{ info_usuario.genero|default:'' }}</p>
+                                <p><strong>direccion:</strong> {{ info_usuario.direccion|default:'' }}</p>
+                                <p><strong>Age:</strong> {{ info_usuario.fechanacimiento|default:'' }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer text-right">
+                        <a href="{% url 'view_cliente' %}" class="btn btn-secondary mr-2">Volver Atrás</a>
+                        <a href="{% url 'actualizar_perfil'  id=usuario.id %}" class="btn btn-primary">Actualizar Perfil</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

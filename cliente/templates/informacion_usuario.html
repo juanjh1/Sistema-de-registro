@@ -1,0 +1,39 @@
+{% extends 'base2.html' %}
+
+{% load static %}
+
+{% block page %}
+<div class="container">
+<div class="card my-4">
+<div class="card-header">
+<h3>Información de Usuario</h3>
+</div>
+<div class="card-body">
+<form method="POST" enctype="multipart/form-data">
+{% csrf_token %}
+<div class="form-group">
+<label for="id_foto">Foto de perfil:</label>
+<input type="file" name="foto" id="id_foto" class="form-control">
+</div>
+<div class="form-group">
+<label for="id_numerotelefonico">Número telefónico:</label>
+<input type="text" name="numerotelefonico" id="id_numerotelefonico" class="form-control">
+</div>
+<div class="form-group">
+<label for="id_genero">Género:</label>
+<input type="text" name="genero" id="id_genero" class="form-control">
+</div>
+<div class="form-group">
+<label for="id_direccion">Dirección:</label>
+<input type="text" name="direccion" id="id_direccion" class="form-control">
+</div>
+<div class="form-group">
+<label for="id_fechanacimiento">Fecha de nacimiento:</label>
+<input type="date" name="fechanacimiento" id="id_fechanacimiento" class="form-control">
+</div>
+<button type="submit" class="btn btn-primary">Guardar</button>
+</form>
+</div>
+</div>
+</div>
+{% endblock %}

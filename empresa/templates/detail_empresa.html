@@ -78,7 +78,9 @@
                 <li class="list-group-item"><strong>Nombre:</strong> {{ paradero.paradero.nombre }}</li>
                 <li class="list-group-item"><strong>Número de Resolución:</strong> {{ paradero.paradero.numero_resolucion }}</li>
                 <li class="list-group-item"><strong>Fecha de Resolución:</strong> {{ paradero.fecha_resolcuion }}</li>
+                <a href="" class="btn btn-danger"><i class=" fas fa-solid fa-x" style="color: #ffffff;"></i></a> 
               </ul>
+             
             </div>
           {% endfor %}
         </div>
@@ -88,29 +90,11 @@
       
       {% if user.id == empresa.usuario.id %}
       <a href="{% url 'paradero_empresa' code=empresa.codigo %}" class="btn btn-primary mt-3">Agregar paradero</a>
+      
+
       {% endif %}
     </div>
-    <hr>
-    <hr>
-    <hr>
-<div class="card mt-3">
-  <div class="card-header"><strong>Licencia</strong></div>
-  <ul class="list-group list-group-flush">
-    {% if empresa.licencia_set.all %}
-      {% for licencia in empresa.licencia_set.all %}
-        <li class="list-group-item"><strong>Código:</strong> {{ licencia.codigo }}</li>
-        <li class="list-group-item"><strong>Número de Resolución:</strong> {{ licencia.numero_resolucion }}</li>
-        <li class="list-group-item"><strong>Fecha Inicial:</strong> {{ licencia.fecha_inicial }}</li>
-        <li class="list-group-item"><strong>Fecha Final:</strong> {{ licencia.fecha_final }}</li>
-        <li class="list-group-item"><strong>Recibo de Caja:</strong> {{ licencia.Recibo_caja }}</li>
-      {% empty %}
-      {% endfor %}
     
-      
-    {% endif %}
-  </ul>
- 
-</div>
 
 {% endblock %}
 
