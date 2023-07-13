@@ -13,9 +13,6 @@
 
   <div class="container">
     <div class="card my-4">
-      <div class="card-header">
-        Formulario
-      </div>
       <div class="card-body">
         <form id="form-paso-1" class="formulario" action="{% url 'actualizar_empresa' code=empresa.codigo %}" method="POST" >
           {% csrf_token %}
@@ -29,7 +26,7 @@
           </div>
           <div class="form-group">
             <label for="id_flota" class="form-label">Flota:</label>
-            <input type="number" id="id_flota" name="flota" required class="form-control" value="{{ empresa.flota }}">
+            <input type="text" id="id_flota" name="flota" required class="form-control" value="{{ empresa.flota }}">
           </div>
           <div class="form-group">
             <label for="id_correo_electronico" class="form-label">Correo electrónico:</label>
@@ -51,7 +48,8 @@
               {% endfor %}
             </select>
           </div>
-          <button type="submit" class="btn btn-primary btn-siguiente" data-actual="form-paso-1" data-siguiente="form-paso-2">Actualizar</button>
+          <button type="submit" class="btn btn-primary btn-block">Actualizar</button>
+
         </form>
       </div>
     </div>

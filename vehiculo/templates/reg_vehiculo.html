@@ -7,6 +7,7 @@
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="{% url 'view_cliente' %}">Home</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'vehiculos' %}">Vehiculos</a></li>
       <li class="breadcrumb-item active" aria-current="page">Registrar Vehiculos</li>
   </ol>
 </nav>
@@ -14,9 +15,6 @@
 <div class="container">
   
   <div class="card my-4">
-      <div class="card-header">
-        <h4 class="text-center">Registrar Vehículos</h4>
-      </div>
       <div class="card-body">
           <form id="form-paso-1" class="formulario" action="{% url 'create_vehiculo' %}" method="POST" >
 
@@ -44,14 +42,14 @@
               <div class="form-group row">
                   <label for="id_nombre" class="col-sm-2 col-form-label">Numero de placa:</label>
                   <div class="col-sm-10">
-                      <input type="number"  name="n_placa" maxlength="50" required class="form-control">
+                      <input type="text"  name="n_placa" maxlength="10" required class="form-control">
                   </div>
               </div>
 
               <div class="form-group row">
                   <label for="id_direccion" class="col-sm-2 col-form-label">Numeración:</label>
                   <div class="col-sm-10">
-                      <input type="number" id="id_direccion" name="numeracion" maxlength="70" required class="form-control">
+                      <input type="text" id="id_direccion" name="numeracion" maxlength="10" required class="form-control">
                   </div>
               </div>
 
@@ -67,7 +65,7 @@
               </div>
 
               <div class="form-group">
-                <label  class="form-label">Conductor</label>
+                <label  class="form-label">Conductor:</label>
                 <select id="" name="conductor" required class="form-control">
                 {% for persona in personas %}
                 
@@ -77,7 +75,7 @@
                 </select>
               </div>
               <div class="form-group">
-                <label  class="form-label">Estado</label>
+                <label  class="form-label">Estado:</label>
                 <select id="" name="estado" required class="form-control">
                 {% for estado in estados %}
                 
@@ -87,7 +85,7 @@
                 </select>
               </div>
               <div class="form-group">
-                <label  class="form-label">Estado</label>
+                <label  class="form-label">Modelo:</label>
                 <select  name="modelo" required class="form-control">
                 {% for modelo in modelos %}
                 
@@ -96,7 +94,7 @@
                 {% endfor %}
                 </select>
               </div>
-              <button type="submit" class="btn btn-primary btn-siguiente" data-actual="form-paso-1" data-siguiente="form-paso-2">enviar</button>
+              <button type="submit" class="btn btn-primary btn-block">Crear</button>
             </form>
           </div>
         </div>

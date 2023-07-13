@@ -7,76 +7,85 @@
     <title>User Profile</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <!-- Custom Styles -->
     <style>
         body {
-            background-image: url("{% static 'img/background.jpg' %}");
-            background-repeat: no-repeat;
-            background-size: cover;
+            background-color: #f8f9fa;
         }
-        .card {
-            background-color: rgba(255, 255, 255, 0.9);
+        .profile-card {
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+        }
+        .profile-card .card-header {
+            background-color: #007bff;
+            color: #ffffff;
+            border-radius: 10px 10px 0 0;
+            text-align: center;
+            padding: 20px;
+        }
+        .profile-card .card-body {
+            padding: 30px;
         }
         .profile-pic {
-            max-height: 200px;
+            width: 200px;
+            height: 200px;
             object-fit: cover;
+            border-radius: 50%;
+            margin: 0 auto;
+            display: block;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
         }
-        .section-header {
-            background-color: #007bff;
-            color: #fff;
-            padding: 20px;
-            margin-top: 40px;
-            margin-bottom: 20px;
+        .profile-card h2 {
+            font-size: 28px;
+            margin-top: 20px;
+            margin-bottom: 10px;
             text-align: center;
-            font-size: 32px;
-            border-radius: 10px;
         }
-        .skill-icon {
-            font-size: 48px;
-            color: #007bff;
+        .profile-card p {
+            font-size: 16px;
             margin-bottom: 10px;
         }
-        .skill-name {
-            font-size: 24px;
+        .profile-card .description-label {
             font-weight: bold;
-            margin-bottom: 10px;
+        }
+        .btn-back {
+            background-color: #6c757d;
+            border-color: #6c757d;
+            color: #ffffff;
+        }
+        .btn-back:hover {
+            background-color: #5a6268;
+            border-color: #5a6268;
         }
     </style>
 </head>
 <body>
-    <div class="container my-5">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header bg-primary text-white">
-                        <h2 class="mb-0">{{ usuario.first_name }} {{ usuario.last_name }}</h2>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-4">
-                                {% if info_usuario.foto %}
-                                <img src="{{ info_usuario.foto.url }}" alt="Profile Picture" class="img-thumbnail profile-pic">
-                                {% else %}
-                                <img src="{% static 'img/default.png' %}" alt="" class="img-thumbnail profile-pic">
-                                {% endif %}
-                            </div>
-                            <div class="col-md-8">
-                                <p><strong>Username:</strong> {{ usuario.username }}</p>
-                                <p><strong>Email:</strong> {{ usuario.email }}</p>
-                                <p><strong>Telefono :</strong> {{ info_usuario.numerotelefonico|default:'' }}</p>
-                                <p><strong>Genero:</strong> {{ info_usuario.genero|default:'' }}</p>
-                                <p><strong>direccion:</strong> {{ info_usuario.direccion|default:'' }}</p>
-                                <p><strong>Age:</strong> {{ info_usuario.fechanacimiento|default:'' }}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-footer text-right">
-                        <a href="{% url 'view_cliente' %}" class="btn btn-secondary mr-2">Volver Atrás</a>
-                        <a href="{% url 'actualizar_perfil'  id=usuario.id %}" class="btn btn-primary">Actualizar Perfil</a>
-                    </div>
-                </div>
+    <div class="container py-5">
+        <div class="profile-card">
+            <div class="card-header">
+                <h2 class="mb-0 text-white">{{ usuario.first_name }} {{ usuario.last_name }}</h2>
+            </div>
+            <div class="card-body">
+                {% if usuario.foto %}
+                    <img src="{{ usuario.foto.url }}" alt="Foto de usuario">
+                {% else %}
+                    <img src="{% static 'img/default.png' %}" alt="Foto de usuario por defecto">
+                {% endif %}
+                <h2 class="mb-0">{{ usuario.username }}</h2>
+                <p class="mb-0"><span class="description-label">Email:</span> {{ usuario.email }}</p>
+                <p class="mb-0"><span class="description-label">Telefono:</span> {{ info_usuario.numerotelefonico|default:'' }}</p>
+                <p class="mb-0"><span class="description-label">Genero:</span> {{ info_usuario.genero|default:'' }}</p>
+                <p class="mb-0"><span class="description-label">Direccion:</span> {{ info_usuario.direccion|default:'' }}</p>
+                <p class="mb-0"><span class="description-label">Fecha de Nacimiento:</span> {{ info_usuario.fechanacimiento|default:'' }}</p>
+            </div>
+            <div class="card-footer text-center">
+                <a href="{% url 'view_cliente' %}" class="btn btn-back mr-2">Volver Atrás</a>
+                {% if user == usuario %}
+                    <a href="{% url 'actualizar_perfil' id=usuario.id %}" class="btn btn-primary">Actualizar Perfil</a>
+                {% endif %}
             </div>
         </div>
     </div>

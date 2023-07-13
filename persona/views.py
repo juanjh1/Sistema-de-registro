@@ -3,6 +3,7 @@ import uuid
 from . import models
 from empresa.models import Empresa
 from  django.contrib.auth.models import User
+from django.core.paginator import Paginator
 # Create your views here.
 
 
@@ -47,14 +48,19 @@ def registar (request):
         numero=numero,
         )
 
-    return redirect('/home/')
+    return redirect('/persona/listado-personas/')
 
 
 def view_pesonas(request):
+    
+    persona_list = models.Persona.objects.filter().all()
+    paginator = Paginator(persona_list, 8)  # Número de elementos por página
+    page_number = request.GET.get('page')
+    persona = paginator.get_page(page_number)
 
     context = {
         'user': User.objects.filter(id=request.user.id).first(),
-        'personas' :models.Persona.objects.filter().all()
+        'personas' : persona
     }
     
     return render(request, 'view_persona.html', context)
@@ -65,7 +71,7 @@ def delete_persona(request, code):
 
     persona.delete()
 
-    return redirect('/home/')
+    return redirect('/persona/listado-personas/')
 
     
 def view_actualizar (request, code):
@@ -98,6 +104,6 @@ def actualizar(request, code):
     persona.empresa = empresa  # asignar la empresa directamente
     persona.save()
 
-    return redirect('/home/')
+    return redirect('/persona/listado-personas/')
 
 

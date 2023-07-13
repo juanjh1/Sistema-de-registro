@@ -14,9 +14,7 @@
 </nav>
 <div class="container">
   <div class="card my-4">
-    <div class="card-header">
-      Formulario
-    </div>
+   
     <div class="card-body">
       <form id="form-paso-1" class="formulario" action="{% url 'create_empresa' %}" method="POST" >
         {% csrf_token %}
@@ -30,7 +28,7 @@
         </div>
         <div class="form-group">
           <label for="id_flota" class="form-label">Flota:</label>
-          <input type="number" id="id_flota" name="flota" required class="form-control">
+          <input type="text" id="id_flota" name="flota" required class="form-control">
         </div>
         <div class="form-group">
           <label for="id_correo_electronico" class="form-label">Correo electrónico:</label>
@@ -38,7 +36,7 @@
         </div>
         <div class="form-group">
           <label for="id_numero_resolucion" class="form-label">Número de resolución:</label>
-          <input type="text" id="id_numero_resolucion" name="numero_resolucion" maxlength="100" required class="form-control">
+          <input type="text " id="id_numero_resolucion" name="numero_resolucion" maxlength="100" required class="form-control">
         </div>
         <div class="form-group">
           <label for="id_fecha_resolucion" class="form-label">Fecha de resolución:</label>
@@ -46,7 +44,7 @@
         </div>
         
         <div class="form-group">
-          <label for="f" class="form-label">Federacion</label>
+          <label for="f" class="form-label">Federacion: </label>
           <select id="id_tipo_documento" name="federacion" required class="form-control">
           {% for federacion in federaciones %}
           <option value="{{federacion}}">{{federacion}}</option>
@@ -54,7 +52,7 @@
           {% endfor %}
           </select>
         </div>
-        <button type="submit" class="btn btn-primary btn-siguiente" data-actual="form-paso-1" data-siguiente="form-paso-2">crear</button>
+        <button type="submit" class="btn btn-primary btn-block">Crear</button>
     </div>
     </form>
   </div>

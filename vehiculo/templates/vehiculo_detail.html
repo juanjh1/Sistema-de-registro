@@ -2,62 +2,36 @@
 
 {% block page %}
   <div class="container">
-    <h1 class="text-center">Detalles del Vehículo {{ vehiculo.numero_placa }}</h1>
-    <hr>
-
     <div class="row justify-content-center">
       <div class="col-md-8">
-        <h3 class="mb-4">Información General</h3>
-        <table class="table table-bordered">
-          <tbody>
-            <tr>
-              <th scope="row">Número de placa:</th>
-              <td>{{ vehiculo.numero_placa }}</td>
-            </tr>
-            <tr>
-              <th scope="row">Numeración:</th>
-              <td>{{ vehiculo.numeracion }}</td>
-            </tr>
-            <tr>
-              <th scope="row">Marca:</th>
-              <td>{{ vehiculo.modelo.marca.descripcion }}</td>
-            </tr>
-            <tr>
-              <th scope="row">Modelo:</th>
-              <td>{{ vehiculo.modelo.descripcion }}</td>
-            </tr>
-            <tr>
-              <th scope="row">Año:</th>
-              <td>{{ vehiculo.año }}</td>
-            </tr>
-            <tr>
-              <th scope="row">Propietario:</th>
-              <td>{{ vehiculo.propietario }}</td>
-            </tr>
-            <tr>
-              <th scope="row">Conductor:</th>
-              <td>{{ vehiculo.conductor }}</td>
-            </tr>
-            <tr>
-              <th scope="row">Empresa:</th>
-              <td>{{ vehiculo.empresa }}</td>
-            </tr>
-            <tr>
-              <th scope="row">Estado:</th>
-              <td>{{ vehiculo.estado.descripcion }}</td>
-            </tr>
-            <tr>
-              <th scope="row">Fecha de creación:</th>
-              <td>{{ vehiculo.fecha_creacion }}</td>
-            </tr>
-            <tr>
-              <th scope="row">Fecha de última actualización:</th>
-              <td>{{ vehiculo.fecha_actualizacion }}</td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title text-center mb-4">{{ vehiculo.numero_placa }}</h5>
+            <hr>
+            <div class="row">
+              <div class="col-md-6">
+                <h6 class="card-subtitle mb-2 text-muted">Información General</h6>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item"><strong>Marca:</strong> {{ vehiculo.modelo.marca.descripcion }}</li>
+                  <li class="list-group-item"><strong>Modelo:</strong> {{ vehiculo.modelo.descripcion }}</li>
+                  <li class="list-group-item"><strong>Año:</strong> {{ vehiculo.año }}</li>
+                  <li class="list-group-item"><strong>Propietario:</strong> {{ vehiculo.propietario.nombre}}</li>
+                  <li class="list-group-item"><strong>Conductor:</strong> {{ vehiculo.conductor.nombre }}</li>
+                </ul>
+              </div>
+              <div class="col-md-6">
+                <h6 class="card-subtitle mb-2 text-muted">Detalles adicionales</h6>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item"><strong>Empresa:</strong> {{ vehiculo.empresa.nombre }}</li>
+                  <li class="list-group-item"><strong>Estado:</strong> {{ vehiculo.estado.descripcion }}</li>
+                  <li class="list-group-item"><strong>Fecha de creación:</strong> {{ vehiculo.fecha_creacion }}</li>
+                  <li class="list-group-item"><strong>Fecha de última actualización:</strong> {{ vehiculo.fecha_actualizacion }}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 {% endblock %}
-

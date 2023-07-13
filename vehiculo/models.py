@@ -3,6 +3,7 @@ from empresa.models import Empresa
 from persona.models import Persona
 from  django.contrib.auth.models import User
 from uuid import uuid4
+import json
 
 class Marca(models.Model):
     codigo =  models.IntegerField(primary_key=True)
@@ -50,4 +51,22 @@ class Vehiculo(models.Model):
 
 
 
+def importar_datos_desde_json():
+    # Leer el archivo JSON de marcas
+    with open('C:/Users/acer/OneDrive/Escritorio/program/trabajo/marcas.json') as archivo_marcas:
+        marcas = json.load(archivo_marcas)
+        for marca in marcas:
+            Marca.objects.create(
+                codigo=marca['codigo'],
+                descripcion=marca['descripcion']
+            )
     
+    # Leer el archivo JSON de modelos
+    with open('C:/Users/acer/OneDrive/Escritorio/program/trabajo/modelos.json') as archivo_modelos:
+        modelos = json.load(archivo_modelos)
+        for modelo in modelos:
+            Modelo.objects.create(
+                codigo=modelo['codigo'],
+                marca_id=modelo['marca'],
+                descripcion=modelo['descripcion']
+            )

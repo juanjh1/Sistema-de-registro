@@ -3,77 +3,80 @@
 {% load static %}
 
 {% block page %}
-<nav aria-label="breadcrumb">
-<ol class="breadcrumb">
-<li class="breadcrumb-item"><a href="{% url 'view_cliente' %}">Home</a></li>
-<li class="breadcrumb-item active" aria-current="page">Paraderos</li>
-</ol>
-</nav>
-<div class="card shadow mb-4">
-
-  <div class="card-body">
-      <div class="table-responsive">
-          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-              <thead>
-                  <tr>
-                      <th>Nombre</th>
-                      <th>N.Resolucion</th>
-                      <th>Fecha de Resolucion</th>
-                      <th>Acciones</th>
-                  </tr>
-              </thead>
-              <tfoot>
-                  <tr>
-                      <th>Nombre</th>
-                      <th>N.Resolucion</th>
-                      <th>Fecha de Resolucion</th>
-                      <th>Acciones</th>
-                  </tr>
-              </tfoot>
-              <tbody>
-                {% for paradero in paraderos %}
-                <tr>
-                  <td>{{ paradero.nombre }}</td>
-                  <td>{{ paradero.numero_resolucion }}</td>
-                  <td>{{ paradero.fecha_resolcuion }}</td>
-                  <td>
-                    {% if user.id == paradero.usuario.id %}
-                    <div class="btn-group" role="group">
-                      <button type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Acciones
-                      </button>
-                      <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" href="{% url 'actualizar_paradero' code=paradero.codigo %}"><i class="fas fa-edit"></i> Actualizar</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item text-danger" href="#" data-toggle="modal" data-target="#eliminar-paradero-{{ paradero.codigo }}"><i class="fas fa-trash"></i> Eliminar</a>
-                      </div>
+    <style>
+        .fixed-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 999;
+            background-color: #007bff; /* Color azul para el botón */
+        }
+    </style>
+    <div class="container-fluid">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'view_cliente' %}">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Paraderos</li>
+            </ol>
+        </nav>
+        <div class="row">
+            
+                    {% for paradero in paraderos %}
+                    <div class="col-sm-6 col-md-4 col-lg-3">
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <h6 class="card-title">{{ paradero.nombre }}</h6>
+                                <p class="card-text"><strong>Número de Resolución:</strong> {{ paradero.numero_resolucion }}</p>
+                                <p class="card-text"><strong>Fecha de Resolución:</strong> {{ paradero.fecha_resolucion }}</p>
+                            </div>
+                            <div class="card-footer">
+                                <div class="btn-group" role="group">
+                                    <button type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Acciones
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <a class="dropdown-item" href="{% url 'actualizar_paradero' code=paradero.codigo %}"><i class="fas fa-edit"></i> Actualizar</a>
+                                        <a class="dropdown-item text-danger" href="{% url 'eliminar_paradero' code=paradero.codigo %}" ><i class="fas fa-trash"></i> Eliminar</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    {% else %}
-                    -
-                    {% endif %}
-                  </td>
-                </tr>
-              
-                <!-- Modal para eliminar paradero -->
-                <div class="modal fade" id="eliminar-paradero-{{ paradero.codigo }}" tabindex="-1" role="dialog" aria-labelledby="eliminarParaderoModal" aria-hidden="true">
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="eliminarParaderoModal">Eliminar paradero</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <div class="modal-body">
-                        <p>¿Está seguro que desea eliminar el paradero "{{ paradero.nombre }}"?</p>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <a href="{% url 'eliminar_paradero' code=paradero.codigo %}" class="btn btn-danger"><i class="fas fa-trash"></i> Eliminar</a>
-                      </div>
-                    </div>
-                  </div>
+                    {% endfor %}
                 </div>
-              {% endfor %}
-              
-{% endblock page %}
+            
+            <div class="col-md-3">
+                <div class="float-right">
+                    <a href="{% url 'create_paradero' %}" class="btn btn-primary btn-circle btn-lg fixed-button"><i class="fas fa-plus"></i></a>
+                </div>
+            </div>
+        
+        
+        <!-- Paginación -->
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+                {% if paraderos.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ paraderos.previous_page_number }}" aria-label="Anterior">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                {% endif %}
+                {% for i in paraderos.paginator.page_range %}
+                {% if paraderos.number == i %}
+                <li class="page-item active"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                {% else %}
+                <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                {% endif %}
+                {% endfor %}
+                {% if paraderos.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ paraderos.next_page_number }}" aria-label="Siguiente">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+{% endblock %}

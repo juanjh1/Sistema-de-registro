@@ -3,6 +3,21 @@
 {% load static %}
 
 {% block page %}
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .fixed-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 999;
+            background-color: #007bff; /* Color blanco para el botón */
+        }
+    </style>
     <div class="container-fluid">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
@@ -10,88 +25,67 @@
                 <li class="breadcrumb-item active" aria-current="page">Empresas</li>
             </ol>
         </nav>
-
-        <div class="card shadow mb-4">
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                        <thead>
-                            <tr>
-                                <th>Nombre</th>
-                                <th>Dirección</th>
-                                <th>Flota</th>
-                                <th>Correo Electrónico</th>
-                                <th>Número de Resolución</th>
-                                <th>Fecha de Resolución</th>
-                                <th>Federación</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tfoot>
-                            <tr>
-                                <th>Nombre</th>
-                                <th>Dirección</th>
-                                <th>Flota</th>
-                                <th>Correo Electrónico</th>
-                                <th>Número de Resolución</th>
-                                <th>Fecha de Resolución</th>
-                                <th>Federación</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </tfoot>
-                        <tbody>
-                          {% for empresa in empresas %}
-                          <tr>
-                            <td><a href="{% url 'detail_empresa' codigo=empresa.codigo %}">{{ empresa.nombre }}</a></td>
-                            <td>{{ empresa.direccion }}</td>
-                            <td>{{ empresa.flota }}</td>
-                            <td>{{ empresa.correo_electronico }}</td>
-                            <td>{{ empresa.numero_resolucion }}</td>
-                            <td>{{ empresa.fecha_resolucion }}</td>
-                            <td>{{ empresa.federacion }}</td>
-                            <td>
-                              {% if user == empresa.usuario %}
-                              <div class="btn-group" role="group">
-                                <button type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                  Acciones
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-right">
-                                  <a class="dropdown-item" href="{% url 'actualizar_empresa' code=empresa.codigo %}"><i class="fas fa-edit"></i> Editar</a>
-                                  <div class="dropdown-divider"></div>
-                                  <a class="dropdown-item text-danger" href="#" data-toggle="modal" data-target="#eliminar-empresa-{{ empresa.codigo }}"><i class="fas fa-trash"></i> Eliminar</a>
-                                </div>
-                              </div>
-                              {% else %}
-                              -
-                              {% endif %}
-                            </td>
-                          </tr>
-                          
-                          <!-- Modal para eliminar empresa -->
-                          <div class="modal fade" id="eliminar-empresa-{{ empresa.codigo }}" tabindex="-1" role="dialog" aria-labelledby="eliminarEmpresaModal" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                              <div class="modal-content">
-                                <div class="modal-header">
-                                  <h5 class="modal-title" id="eliminarEmpresaModal">Eliminar empresa</h5>
-                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                  </button>
-                                </div>
-                                <div class="modal-body">
-                                  <p>¿Está seguro que desea eliminar la empresa "{{ empresa.nombre }}"?</p>
-                                </div>
-                                <div class="modal-footer">
-                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                  <a href="{% url 'eliminar_empresa' code=empresa.codigo %}" class="btn btn-danger"><i class="fas fa-trash"></i> Eliminar</a>
-                                </div>
-                              </div>
+        <div class="row">
+            {% for empresa in empresas %}
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h6 class="card-title">{{ empresa.nombre }}</h6>
+                        <p class="card-text"><strong>Dirección:</strong> {{ empresa.direccion }}</p>
+                        <p class="card-text"><strong>Flota:</strong> {{ empresa.flota }}</p>
+                        <p class="card-text"><strong>Correo Electrónico:</strong> {{ empresa.correo_electronico }}</p>
+                        <p class="card-text"><strong>Número de Resolución:</strong> {{ empresa.numero_resolucion }}</p>
+                        <p class="card-text"><strong>Fecha de Resolución:</strong> {{ empresa.fecha_resolucion }}</p>
+                        <p class="card-text"><strong>Federación:</strong> {{ empresa.federacion }}</p>
+                    </div>
+                    <div class="card-footer">
+                        {% if user == empresa.usuario %}
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Acciones
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="{% url 'actualizar_empresa' code=empresa.codigo %}"><i class="fas fa-edit"></i> Editar</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item text-danger" href="{% url 'eliminar_empresa' code=empresa.codigo%}" ><i class="fas fa-trash"></i> Eliminar</a>
                             </div>
-                          </div>
-                          {% endfor %}
-                        </tbody>
-                    </table>
+                        </div>
+                        <a href="{% url 'detail_empresa' codigo=empresa.codigo %}" class="btn btn-primary btn-sm">Detalles</a>
+                        {% else %}
+                        -
+                        {% endif %}
+                    </div>
                 </div>
             </div>
+            {% endfor %}
         </div>
+        <!-- Paginación -->
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+                {% if empresas.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ empresas.previous_page_number }}" aria-label="Anterior">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                {% endif %}
+                {% for i in empresas.paginator.page_range %}
+                {% if empresas.number == i %}
+                <li class="page-item active"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                {% else %}
+                <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                {% endif %}
+                {% endfor %}
+                {% if empresas.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ empresas.next_page_number }}" aria-label="Siguiente">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
     </div>
+    <a href="{% url 'create_empresa' %}" class="btn btn-primary btn-circle btn-lg fixed-button"><i class="fas fa-plus"></i></a>
 {% endblock %}
+

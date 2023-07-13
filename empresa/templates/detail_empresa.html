@@ -1,105 +1,115 @@
 {% extends "base2.html" %}
 
 {% block page %}
-  <div class="row">
-    <div class="col-md-6">
-      <h2>Empresa</h2>
-      <ul class="list-group">
-        <li class="list-group-item"><strong>Nombre:</strong> {{ empresa.nombre }}</li>
-        <li class="list-group-item"><strong>Código:</strong> {{ empresa.codigo }}</li>
-        <li class="list-group-item"><strong>Dirección:</strong> {{ empresa.direccion }}</li>
-        <li class="list-group-item"><strong>Flota:</strong> {{ empresa.flota }}</li>
-        <li class="list-group-item"><strong>Correo electrónico:</strong> {{ empresa.correo_electronico }}</li>
-        <li class="list-group-item"><strong>Número de resolución:</strong> {{ empresa.numero_resolucion }}</li>
-        <li class="list-group-item"><strong>Fecha de resolución:</strong> {{ empresa.fecha_resolucion }}</li>
-        <li class="list-group-item"><strong>Federación:</strong> {{ empresa.federacion }}</li>
-        <li class="list-group-item"><strong>Usuario:</strong> {{ empresa.usuario }}</li>
-        <li class="list-group-item"><strong>Fecha de creación:</strong> {{ empresa.fecha_creacion }}</li>
-        <li class="list-group-item"><strong>Fecha de actualización:</strong> {{ empresa.fecha_actualizacion }}</li>
-      </ul>
-      {% if user.id == empresa.usuario.id %}
-      <a href="{% url 'actualizar_empresa' code=empresa.codigo %}" class="btn btn-primary mt-3">Actualizar perfil</a>
-      {% endif %}
-    </div>
-    <hr>
-    <hr>
-    <hr>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'view_cliente' %}">Home</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'view_empresa' %}">Empresas</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{{ empresa.nombre }}</li>
+  </ol>
+</nav>
 
-    <div class="col-md-6">
-      <h2>Licencia</h2>
-      {% if empresa.licencia_set.all %}
-        <ul class="list-group">
-          {% for licencia in empresa.licencia_set.all %}
-            <li class="list-group-item"><strong>Código:</strong> {{ licencia.codigo }}</li>
-            <li class="list-group-item"><strong>Número de resolución:</strong> {{ licencia.numero_resolucion }}</li>
-            <li class="list-group-item"><strong>Fecha inicial:</strong> {{ licencia.fecha_inicial }}</li>
-            <li class="list-group-item"><strong>Fecha final:</strong> {{ licencia.fecha_final }}</li>
-            <li class="list-group-item"><strong>Recibo de caja:</strong> {{ licencia.Recibo_caja }}</li>
-            <li class="list-group-item"><strong>Empresa:</strong> {{ licencia.empresa }}</li>
-            <li class="list-group-item"><strong>Fecha de creación:</strong> {{ licencia.fecha_creacion }}</li>
-            <li class="list-group-item"><strong>Fecha de actualización:</strong> {{ licencia.fecha_actualizacion }}</li>
-          {% endfor %}
+<div class="row">
+
+  <div class="col-md-4">
+    <div class="card mb-4">
+      <div class="card-body">
+        <h2>Empresa</h2>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><strong>Nombre:</strong> {{ empresa.nombre }}</li>
+          <li class="list-group-item"><strong>Código:</strong> {{ empresa.codigo }}</li>
+          <li class="list-group-item"><strong>Dirección:</strong> {{ empresa.direccion }}</li>
+          <li class="list-group-item"><strong>Flota:</strong> {{ empresa.flota }}</li>
+          <li class="list-group-item"><strong>Correo electrónico:</strong> {{ empresa.correo_electronico }}</li>
+          <li class="list-group-item"><strong>Número de resolución:</strong> {{ empresa.numero_resolucion }}</li>
+          <li class="list-group-item"><strong>Fecha de resolución:</strong> {{ empresa.fecha_resolucion }}</li>
+          <li class="list-group-item"><strong>Federación:</strong> {{ empresa.federacion }}</li>
+          <li class="list-group-item"><strong>Usuario:</strong> {{ empresa.usuario }}</li>
+          <li class="list-group-item"><strong>Fecha de creación:</strong> {{ empresa.fecha_creacion }}</li>
+          <li class="list-group-item"><strong>Fecha de actualización:</strong> {{ empresa.fecha_actualizacion }}</li>
         </ul>
-      {% else %}
-        <p>No se ha registrado ninguna licencia para esta empresa.</p>
         {% if user.id == empresa.usuario.id %}
-        <a href="{% url 'create_licencia' code=empresa.codigo %}" class="btn btn-primary mt-3">Agregar licencia</a>
-      {% endif %}
-      {% endif %}
+        <a href="{% url 'actualizar_empresa' code=empresa.codigo %}" class="btn btn-primary mt-3">Actualizar perfil</a>
+        {% endif %}
+      </div>
     </div>
-    
-    <hr>
-    <hr>
-    <hr>
+  </div>
 
-    <div class="col-md-6">
-      <h2>Paradero</h2>
-      
-      {% if paradero_empresa %}
-        <!-- Pestañas -->
-        <ul class="nav nav-tabs" role="tablist">
-          {% for paradero in paradero_empresa %}
-            <li class="nav-item">
-              <a class="nav-link{% if forloop.first %} active{% endif %}" 
-                 data-toggle="tab" href="#tab-{{ paradero.paradero.id }}" role="tab">
-                {{ paradero.paradero.nombre }}
-              </a>
-            </li>
+  <div class="col-md-4">
+    <div class="card mb-4">
+      <div class="card-body">
+        <h2>Licencia</h2>
+        {% if empresa.licencia_set.all %}
+        <ul class="list-group list-group-flush">
+          {% for licencia in empresa.licencia_set.all %}
+          <li class="list-group-item"><strong>Código:</strong> {{ licencia.codigo }}</li>
+          <li class="list-group-item"><strong>Número de resolución:</strong> {{ licencia.numero_resolucion }}</li>
+          <li class="list-group-item"><strong>Fecha inicial:</strong> {{ licencia.fecha_inicial }}</li>
+          <li class="list-group-item"><strong>Fecha final:</strong> {{ licencia.fecha_final }}</li>
+          <li class="list-group-item"><strong>Recibo de caja:</strong> {{ licencia.Recibo_caja }}</li>
+          <li class="list-group-item"><strong>Empresa:</strong> {{ licencia.empresa.nombre }}</li>
+          <li class="list-group-item"><strong>Fecha de creación:</strong> {{ licencia.fecha_creacion }}</li>
+          <li class="list-group-item"><strong>Fecha de actualización:</strong> {{ licencia.fecha_actualizacion }}</li>
+          <li class="list-group-item"><strong>Archivos:</strong> <a href="{{ licencia.pdf.url }}" download>{{ licencia.pdf.name }}</a></li>
+          
+          {% if user.id == empresa.usuario.id %}
+          <a href="{% url 'eliminar_licencia_empresa' code=licencia.codigo %}" class="btn btn-danger mt-3"><i class="fas fa-trash-alt"></i> Eliminar</a>
+          {% endif %}
+          
           {% endfor %}
         </ul>
-        
-        <!-- Contenido de las pestañas -->
-        <div class="tab-content">
+        {% else %}
+        <div class="text-center">
+          <p>No se ha registrado ninguna licencia para esta empresa.</p>
+          {% if user.id == empresa.usuario.id %}
+          <a href="{% url 'create_licencia' code=empresa.codigo %}" class="btn btn-primary">Agregar licencia</a>
+          
+          {% endif %}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card mb-4">
+      <div class="card-body">
+        <h2>Paradero</h2>
+        {% if paradero_empresa %}
+        <div class="card-header">
+          <ul class="nav nav-tabs card-header-tabs justify-content-center" role="tablist">
+            {% for paradero in paradero_empresa %}
+            <li class="nav-item">
+              <a class="nav-link{% if forloop.first %} active{% endif %}" data-toggle="tab"
+                href="#tab-{{ paradero.paradero.id }}" role="tab">{{ paradero.paradero.nombre }}</a>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="card-body tab-content">
           {% for paradero in paradero_empresa %}
-            <div class="tab-pane fade{% if forloop.first %} show active{% endif %}"
-                 id="tab-{{ paradero.paradero.id }}" role="tabpanel">
-              <ul class="list-group">
-                <li class="list-group-item"><strong>Código:</strong> {{ paradero.paradero.codigo }}</li>
-                <li class="list-group-item"><strong>Nombre:</strong> {{ paradero.paradero.nombre }}</li>
-                <li class="list-group-item"><strong>Número de Resolución:</strong> {{ paradero.paradero.numero_resolucion }}</li>
-                <li class="list-group-item"><strong>Fecha de Resolución:</strong> {{ paradero.fecha_resolcuion }}</li>
-                <a href="" class="btn btn-danger"><i class=" fas fa-solid fa-x" style="color: #ffffff;"></i></a> 
-              </ul>
-             
-            </div>
+          <div class="tab-pane fade{% if forloop.first %} show active{% endif %}" id="tab-{{ paradero.paradero.id }}"
+            role="tabpanel">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item"><strong>Código:</strong> {{ paradero.paradero.codigo }}</li>
+              <li class="list-group-item"><strong>Nombre:</strong> {{ paradero.paradero.nombre }}</li>
+              <li class="list-group-item"><strong>Número de Resolución:</strong> {{ paradero.paradero.numero_resolucion }}</li>
+              <li class="list-group-item"><strong>Fecha de Resolución:</strong> {{ paradero.fecha_resolcuion }}</li>
+            </ul>
+            <a href="{% url 'eliminar_paradero_empresa' code=paradero.paradero.codigo %}" class="btn btn-danger mt-3"><i class="fas fa-trash-alt"></i> Eliminar</a>
+          </div>
           {% endfor %}
         </div>
-      {% else %}
-        <p>No hay paraderos registrados.</p>
-      {% endif %}
-      
-      {% if user.id == empresa.usuario.id %}
-      <a href="{% url 'paradero_empresa' code=empresa.codigo %}" class="btn btn-primary mt-3">Agregar paradero</a>
-      
-
-      {% endif %}
+        {% else %}
+        <div class="text-center">
+          <p>No hay paraderos registrados.</p>
+        </div>
+        {% endif %}
+        {% if user.id == empresa.usuario.id %}
+        <a href="{% url 'paradero_empresa' code=empresa.codigo %}" class="btn btn-primary">Agregar paradero</a>
+        {% endif %}
+      </div>
     </div>
-    
-
+  </div>
+</div>
 {% endblock %}
-
-
-
-
-
-

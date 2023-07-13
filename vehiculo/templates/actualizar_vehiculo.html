@@ -7,14 +7,12 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="{% url 'view_cliente' %}">Home</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'vehiculos' %}">Vehiculos</a></li>
       <li class="breadcrumb-item active" aria-current="page">Registrar Vehiculos</li>
     </ol>
 </nav>
 <div class="container">
   <div class="card my-4">
-    <div class="card-header">
-      Formulario
-    </div>
     <div class="card-body">
       <form id="form-paso-1" class="formulario" action="{% url 'actualizar_vehiculo' code=vehiculo.codigo %}" method="POST">
         {% csrf_token %}
@@ -51,7 +49,7 @@
           </select>
         </div>
         <div class="form-group">
-          <label for="id_tipo_documento" class="form-label">Modelo</label>
+          <label for="id_tipo_documento" class="form-label">Modelo:</label>
           <select id="id_tipo_documento" name="modelo" required class="form-control">
           {% for modelo in modelos %}
             {% if modelo.codigo == vehiculo.modelo.codigo %}
@@ -67,7 +65,7 @@
           <input type="date" id="id_fecha_resolucion" name="ano_fabricacion" required class="form-control" value="{{ vehiculo.ano_fabricacion }}">
         </div>
         <div class="form-group">
-          <label for="id_tipo_documento" class="form-label">Conductor</label>
+          <label for="id_tipo_documento" class="form-label">Conductor:</label>
           <select id="id_tipo_documento" name="conductor" required class="form-control">
           {% for persona in personas %}
           
@@ -76,7 +74,17 @@
           {% endfor %}
           </select>
         </div>
-        <button type="submit" class="btn btn-primary btn-siguiente" data-actual="form-paso-1" data-siguiente="form-paso-2">enviar</button>
+        <div class="form-group">
+          <label  class="form-label">Estado:</label>
+          <select id="" name="estado" required class="form-control">
+          {% for estado in estados %}
+          
+          <option value="{{estado.codigo}}"> {{estado.descripcion}} </option>
+          
+          {% endfor %}
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Actualizar</button>
      
     </div>
   </div>

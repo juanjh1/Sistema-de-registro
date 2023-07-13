@@ -5,6 +5,8 @@ from  django.contrib.auth.models import User
 from persona.models import Persona
 import uuid
 from django.shortcuts import render, get_object_or_404
+from django.core.paginator import Paginator
+import datetime
 # Create your views here.
 
 
@@ -51,7 +53,7 @@ def  create_vehiculo(request):
         usuario= usuario,
         estado= estado
     )
-    return redirect('/home/')
+    return redirect('/vehiculos/listado-vehiculos/')
   
   context = {
         'empresas':Empresa.objects.all(),
@@ -64,13 +66,17 @@ def  create_vehiculo(request):
 
 
 def  view_vehiculo(request):
+  vehiculo_list = models.Vehiculo.objects.filter().all()
+  paginator = Paginator(vehiculo_list, 8)  # Número de elementos por página
+  page_number = request.GET.get('page')
+  vehiculos= paginator.get_page(page_number)
  
- context = {
+  context = {
   
-   'vehiculos':models.Vehiculo.objects.filter().all()
+   'vehiculos':vehiculos
   
  }
- return render(request, 'list_vehiculo.html', context)
+  return render(request, 'list_vehiculo.html', context)
 
 
    
@@ -80,7 +86,7 @@ def delete_vehiculo(request, code):
     vehiculo = models.Vehiculo.objects.filter(codigo=code).first()
 
     vehiculo.delete()
-    return redirect('/home/')
+    return redirect('/vehiculos/listado-vehiculos/')
 
 
 def view_actualizar(request,code):
@@ -104,6 +110,7 @@ def actualizar(request, code):
     empresa = request.POST.get('empresa')
     ano_fabricacion = request.POST.get('ano_fabricacion')
     conductor = request.POST.get('conductor')
+    estado = request.POST.get('estado')
 
 
     ano_fabricacion =int(ano_fabricacion[0:4]) 
@@ -116,7 +123,10 @@ def actualizar(request, code):
 
     
     conductor_uuid = uuid.UUID(conductor)
-
+    
+    
+    
+    estado = uuid.UUID(estado)
     
 
 
@@ -125,22 +135,24 @@ def actualizar(request, code):
     conductor = Persona.objects.filter(codigo=conductor_uuid).first()
     modelo = models.Modelo.objects.filter(codigo=modelo).first()
 
-    estado = models.Estado.objects.filter(codigo=modelo).first()
+    estado = models.Estado.objects.filter(codigo=estado).first()
 
     vehiculo = models.Vehiculo.objects.filter(codigo = code).first()
-
+    fecha_actualizacion = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
     vehiculo.numeracion = numeracion
     vehiculo.numero_placa = n_placa
     vehiculo.empresa = empresa
     vehiculo.año = ano_fabricacion
     vehiculo.modelo = modelo
+    vehiculo.estado = estado
     vehiculo.propietario = propietario
     vehiculo.conductor = conductor
+    vehiculo.fecha_actualizacion = fecha_actualizacion
 
     vehiculo.save()
 
-    return redirect('/home/')
+    return redirect('/vehiculos/listado-vehiculos/')
 
 def vehiculo_detail(request, code):
     vehiculo = get_object_or_404(models.Vehiculo, pk=code)

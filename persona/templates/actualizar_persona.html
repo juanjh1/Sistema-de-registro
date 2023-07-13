@@ -6,16 +6,13 @@
 
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="{% url 'actualizar_persona' code=persona.codigo %}">Home</a></li>
-      <li class="breadcrumb-item active" aria-current="page">Registrar Persona</li>
+      <li class="breadcrumb-item"><a href="{% url 'view_cliente'  %}">Home</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'view_personas' %}">Personas</a></li>
       <li class="breadcrumb-item active" aria-current="page">Actualizar persona</li>
     </ol>
 </nav>
 <div class="container">
   <div class="card my-4">
-    <div class="card-header">
-      Formulario
-    </div>
     <div class="card-body">
       <form id="form-paso-1" class="formulario" action="{% url 'actualizar_persona'  code=persona.codigo%}" method="POST" >
         {% csrf_token %}
@@ -48,8 +45,7 @@
           </select>
         </div>
     
-        <button type="submit" class="btn btn-primary btn-siguiente" data-actual="form-paso-1" data-siguiente="form-paso-2">submit</button>
-     
+        <button type="submit" class="btn btn-primary btn-block">Actualizar</button>
     </div>
   </div>
 </div>

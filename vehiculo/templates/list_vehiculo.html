@@ -2,82 +2,97 @@
 
 {% load static %}
 
-
-
 {% block page %}
+<style>
+    .fixed-button {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 999;
+        background-color: #007bff; /* Color azul para el botón */
+        color: #ffffff; /* Color blanco para el texto del botón */
+        border-radius: 50%; /* Establece la forma circular para el botón */
+        width: 60px; /* Ancho del botón */
+        height: 60px; /* Altura del botón */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        font-size: 24px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    }
+</style>
 
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="{% url 'view_cliente' %}">Home</a></li>
-      <li class="breadcrumb-item active" aria-current="page">Vehiculos</li>
-    </ol>
+<div class="container-fluid">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'view_cliente' %}">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Vehiculos</li>
+        </ol>
+    </nav>
 
-  
-     
-   
-    
-    <div class="card shadow mb-4">
-     
-      <div class="card-body">
-          <div class="table-responsive">
-              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                  <thead>
-                      <tr>
-                          <th>Propietario</th>
-                          <th>Molelo</th>
-                          <th>Empresa</th>
-                          <th>Conductor</th>
-                          <th>Año </th>
-                          <th>Numero_placa</th>
-                          <th>Numeracion</th>
-                          <th>Acciones</th>
-
-                          
-                      </tr>
-                  </thead>
-                  <tfoot>
-                    <tr>
-                      <th>Propietario</th>
-                      <th>Molelo</th>
-                      <th>Empresa</th>
-                      <th>Conductor</th>
-                      <th>Año </th>
-                      <th>Numero_placa</th>
-                      <th>Numeracion</th>
-                      <th>Acciones</th>
-
-
-
-                     
-                  </tr>
-                  </tfoot>
-                  <tbody>
-                    {% for vehiculo in vehiculos %}
-                      <tr>
-                          <td><a href="{% url 'vehiculo_detail' code=vehiculo.codigo%}">{{vehiculo.propietario.nombre}}</a></td>
-                          <td>{{vehiculo.modelo.descripcion}}</td>
-                          <td>{{vehiculo.empresa.nombre}}</td>
-                          <td>{{vehiculo.conductor.nombre}}</td>
-                          <td>{{vehiculo.año}}</td>
-                          <td>{{vehiculo.numero_placa}}</td>
-                          <td>{{vehiculo.numeracion}}</td>
-
-                          
-                          
-                          {% if user.id == vehiculo.usuario.id %}
-                          <td><a href="{% url 'delete_vehiculo' code=vehiculo.codigo%}" class="btn btn-danger">Delete</a>  <a href="{% url 'actualizar_vehiculo_from'  code=vehiculo.codigo%}"class="btn btn-primary">Update</a></td>
-                          {% else %}
-                          <td> </td> 
-                          {% endif %}
-                        </tr>
-                      </tr>
-                    {% endfor %}
-                  </tbody>
-              </table>
-          </div>
-      </div>
+    <div class="row">
+       
+                {% for vehiculo in vehiculos %}
+                <div class="col-sm-6 col-md-4 col-lg-3">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h6 class="card-title">{{ vehiculo.modelo.descripcion }}</h6>
+                            <p class="card-text"><strong>Propietario:</strong> {{ vehiculo.propietario.nombre }}</p>
+                            <p class="card-text"><strong>Empresa:</strong> {{ vehiculo.empresa.nombre }}</p>
+                            <p class="card-text"><strong>Conductor:</strong> {{ vehiculo.conductor.nombre }}</p>
+                            <p class="card-text"><strong>Año:</strong> {{ vehiculo.año }}</p>
+                            <p class="card-text"><strong>Numero de Placa:</strong> {{ vehiculo.numero_placa }}</p>
+                            <p class="card-text"><strong>Numeración:</strong> {{ vehiculo.numeracion }}</p>
+                        </div>
+                        <div class="card-footer">
+                            <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Acciones
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a class="dropdown-item" href="{% url 'delete_vehiculo' code=vehiculo.codigo %}"><i class="fas fa-trash"></i> Eliminar</a>
+                                    <a class="dropdown-item" href="{% url 'actualizar_vehiculo_from' code=vehiculo.codigo %}"><i class="fas fa-edit"></i> Actualizar</a>
+                                </div>
+                            </div>
+                            <a href="{% url 'vehiculo_detail' code=vehiculo.codigo %}" class="btn btn-primary btn-sm">Detalles</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+          
+        <div class="col-md-3">
+            <div class="float-right">
+                <a href="{% url 'create_vehiculo' %}" class="fixed-button"><i class="fas fa-plus"></i></a>
+            </div>
+        </div>
     </div>
-  
-  
-  
-{% endblock  %}
+</div>
+
+<!-- Paginación -->
+<nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+        {% if vehiculos.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ vehiculos.previous_page_number }}" aria-label="Anterior">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        {% endif %}
+        {% for i in vehiculos.paginator.page_range %}
+        {% if vehiculos.number == i %}
+        <li class="page-item active"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+        {% else %}
+        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+        {% endif %}
+        {% endfor %}
+        {% if vehiculos.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ vehiculos.next_page_number }}" aria-label="Siguiente">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+        {% endif %}
+    </ul>
+</nav>
+{% endblock %}
