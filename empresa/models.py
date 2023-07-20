@@ -34,18 +34,23 @@ class Federacion (models.Model):
     class Meta:
         verbose_name_plural = "Federaciones"
 
+def file_upload_path(instance, filename):
+    # Define la ruta donde se almacenarán los archivos
+    return f'media/pdfs/{uuid4()}/{filename}'
+
 class Licencia(models.Model):
-    codigo =  models.UUIDField(primary_key=True, default=uuid4, editable=False)
+    codigo = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     numero_resolucion = models.CharField(null=False, max_length=100)
     fecha_inicial = models.DateField()
     fecha_final = models.DateField()
     Recibo_caja = models.CharField(max_length=180)
-    pdf = models.FileField(upload_to='media/pdfs/', null=True)
-    empresa = models.ForeignKey( Empresa , on_delete=models.CASCADE)
-    fecha_creacion = models.DateTimeField( auto_now=True)
-    fecha_actualizacion = models.DateTimeField( auto_now=True)
-    def __str__(self) -> str:
-       return str(self.empresa )+ str(self.codigo)
+    pdf = models.FileField(upload_to=file_upload_path, null=True)
+    empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE)
+    fecha_creacion = models.DateTimeField(auto_now=True)
+    fecha_actualizacion = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return str(self.empresa) + str(self.codigo)
 
     class Meta:
         verbose_name_plural = "Licencias"

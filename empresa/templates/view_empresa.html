@@ -39,6 +39,7 @@
                         <p class="card-text"><strong>Federación:</strong> {{ empresa.federacion }}</p>
                     </div>
                     <div class="card-footer">
+                        <a href="{% url 'detail_empresa' codigo=empresa.codigo %}" class="btn btn-primary btn-sm">Detalles</a>
                         {% if user == empresa.usuario %}
                         <div class="btn-group" role="group">
                             <button type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -50,10 +51,11 @@
                                 <a class="dropdown-item text-danger" href="{% url 'eliminar_empresa' code=empresa.codigo%}" ><i class="fas fa-trash"></i> Eliminar</a>
                             </div>
                         </div>
-                        <a href="{% url 'detail_empresa' codigo=empresa.codigo %}" class="btn btn-primary btn-sm">Detalles</a>
+                       
                         {% else %}
                         -
                         {% endif %}
+                       
                     </div>
                 </div>
             </div>

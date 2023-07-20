@@ -10,6 +10,83 @@
           <li class="breadcrumb-item active" aria-current="page">Home</li>
         </ol>
       </nav>
-
 <div>
+  <div class="container">
+    <!-- Últimos usuarios registrados -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card bg-primary text-black mb-4">
+          <div class="card-header">
+            <h4 class="text-black">Últimos usuarios registrados</h4>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              {% for usuario in ultimos_usuarios %}
+                <div class="col-md-4">
+                  <div class="card bg-light mb-3">
+                    <div class="card-body">
+                      <h5 class="card-title text-primary">{{ usuario.username }}</h5>
+                      <!-- Agrega otros datos relevantes del usuario aquí -->
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Últimas personas registradas -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card bg-success text-black mb-4">
+          <div class="card-header">
+            <h4 class="">Últimas personas registradas</h4>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              {% for persona in ultimas_personas %}
+                <div class="col-md-4">
+                  <div class="card bg-light mb-3">
+                    <div class="card-body">
+                      <h5 class="card-title text-success">{{ persona.nombre }}</h5>
+                      <!-- Agrega otros datos relevantes de la persona aquí -->
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Últimos vehículos registrados -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card bg-info text-black mb-4">
+          <div class="card-header">
+            <h4 class="text-black">Últimos vehículos registrados</h4>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              {% for vehiculo in ultimos_vehiculos %}
+                <div class="col-md-4">
+                  <div class="card bg-light mb-3">
+                    <div class="card-body">
+                      <h5 class="card-title text-info">{{ vehiculo.placa }}</h5>
+                      <!-- Agrega otros datos relevantes del vehículo aquí -->
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
 {% endblock  %}

@@ -2,7 +2,9 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from . import models
-
+from  empresa.models import Empresa
+from  vehiculo.models import Vehiculo
+from  persona.models import Persona
 
 def index(request):
     return redirect('/auth/login/')
@@ -15,10 +17,16 @@ def view_cliente(request):
 
     if info_usuario is None:
         models.InformacionUsuario.objects.create(user=user)
+    ultimos_usuarios = User.objects.order_by('-date_joined')[:3]
+    ultimas_personas = Persona.objects.order_by('-fecha_creacion')[:3]
+    ultimos_vehiculos = Vehiculo.objects.order_by('-fecha_creacion')[:3]
 
     context = {
         'user': request.user,
-        'info_usuario': models.InformacionUsuario.objects.filter(user=request.user.id).first()
+        'info_usuario': models.InformacionUsuario.objects.filter(user=request.user.id).first(),
+        'ultimos_usuarios': ultimos_usuarios,
+        'ultimas_personas': ultimas_personas,
+        'ultimos_vehiculos': ultimos_vehiculos,
     }
 
     return render(request, "clienteview.html", context)

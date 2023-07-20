@@ -7,62 +7,71 @@ import uuid
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
 import datetime
+import json
 # Create your views here.
 
 
-def  create_vehiculo(request): 
 
-  if request.method == 'POST':
-    numeracion = request.POST.get('numeracion')
-    n_placa = request.POST.get('n_placa')
-    propietario = request.POST.get('propietario')
-    modelo = request.POST.get('modelo')
-    empresa = request.POST.get('empresa')
-    ano_fabricacion = request.POST.get('ano_fabricacion')
-    conductor = request.POST.get('conductor')
-    estado = request.POST.get('estado')
+def create_vehiculo(request):
+    if request.method == 'POST':
+        numeracion = request.POST.get('numeracion')
+        n_placa = request.POST.get('n_placa')
+        propietario = request.POST.get('propietario')
+        modelo = request.POST.get('modelo')
+        empresa = request.POST.get('empresa')
+        ano_fabricacion = request.POST.get('ano_fabricacion')
+        conductor = request.POST.get('conductor')
+        estado = request.POST.get('estado')
 
-    ano_fabricacion =int(ano_fabricacion[0:3]) 
+        ano_fabricacion = int(ano_fabricacion[0:4])
 
-    empresa_uuid = uuid.UUID(empresa)
+        empresa_uuid = uuid.UUID(empresa)
+        propietario_uuid = uuid.UUID(propietario)
+        conductor_uuid = uuid.UUID(conductor)
+        estado_uuid = uuid.UUID(estado)
 
+        estado = models.Estado.objects.filter(codigo=estado_uuid).first()
+        empresa = Empresa.objects.filter(codigo=empresa_uuid).first()
+        propietario = Persona.objects.filter(codigo=propietario_uuid).first()
+        conductor = Persona.objects.filter(codigo=conductor_uuid).first()
+        modelo = models.Modelo.objects.filter(codigo=modelo).first()
+
+        usuario = User.objects.filter(id=request.user.id).first()
+
+        models.Vehiculo.objects.create(
+            empresa=empresa,
+            numero_placa=n_placa,
+            numeracion=numeracion,
+            propietario=propietario,
+            modelo=modelo,
+            año=ano_fabricacion,
+            conductor=conductor,
+            usuario=usuario,
+            estado=estado
+        )
+        return redirect('/vehiculos/listado-vehiculos/')
     
-    propietario_uuid = uuid.UUID(propietario)
+    marcas = models.Marca.objects.all()
+    for marca in marcas:
+    # Verificar si la marca tiene modelos
+      marca.has_modelos = marca.modelo_set.exists()
+      marca.modelos = [{'codigo': modelo.codigo, 'descripcion': modelo.descripcion} for modelo in marca.modelo_set.all()]
 
-    
-    conductor_uuid = uuid.UUID(conductor)
+    context = {
+        'empresas': Empresa.objects.all(),
+        'personas': Persona.objects.all(),
+        'modelos': models.Modelo.objects.all(),
+        'marcas': marcas,
+        'estados': models.Estado.objects.all()
+    }
+    modelos_data = {marca.codigo: [{'codigo': modelo.codigo, 'descripcion': modelo.descripcion} for modelo in marca.modelo_set.all()] for marca in marcas}
+    context['modelos_data'] = json.dumps(modelos_data)
+   
 
-    estado_uuid = uuid.UUID(estado)
-    
-    estado=  models.Estado.objects.filter(codigo=estado_uuid).first()
-    empresa = Empresa.objects.filter(codigo=empresa_uuid).first()
-    propietario = Persona.objects.filter(codigo=propietario_uuid).first()
-    conductor = Persona.objects.filter(codigo=conductor_uuid).first()
-    modelo = models.Modelo.objects.filter(codigo=modelo).first()
+    return render(request, 'reg_vehiculo.html', context)
 
-    usuario = User.objects.filter(id=request.user.id).first()
-
-    models.Vehiculo.objects.create(
-        empresa=empresa,
-        numero_placa=n_placa,
-        numeracion=numeracion,
-        propietario=propietario,
-        modelo=modelo,
-        año=ano_fabricacion,
-        conductor=conductor,
-        usuario= usuario,
-        estado= estado
-    )
-    return redirect('/vehiculos/listado-vehiculos/')
   
-  context = {
-        'empresas':Empresa.objects.all(),
-        'personas':Persona.objects.all(),
-        'modelos':models.Modelo.objects.all(),
-        'marcas': models.Marca.objects.all(),
-        'estados': models.Estado.objects.all()}
-  
-  return render(request, 'reg_vehiculo.html', context)
+
 
 
 def  view_vehiculo(request):

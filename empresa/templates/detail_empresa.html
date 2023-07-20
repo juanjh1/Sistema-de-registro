@@ -50,7 +50,7 @@
           <li class="list-group-item"><strong>Empresa:</strong> {{ licencia.empresa.nombre }}</li>
           <li class="list-group-item"><strong>Fecha de creación:</strong> {{ licencia.fecha_creacion }}</li>
           <li class="list-group-item"><strong>Fecha de actualización:</strong> {{ licencia.fecha_actualizacion }}</li>
-          <li class="list-group-item"><strong>Archivos:</strong> <a href="{{ licencia.pdf.url }}" download>{{ licencia.pdf.name }}</a></li>
+          <li class="list-group-item"><strong><i class="fa fa-solid fa-download"></i></strong> <a href="{{ licencia.pdf.url }}" download>{{ licencia.pdf.name }} </a></li>
           
           {% if user.id == empresa.usuario.id %}
           <a href="{% url 'eliminar_licencia_empresa' code=licencia.codigo %}" class="btn btn-danger mt-3"><i class="fas fa-trash-alt"></i> Eliminar</a>

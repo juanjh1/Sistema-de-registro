@@ -1,102 +1,134 @@
-{% extends 'base2.html' %}
+<!-- vehiculo.html -->
 
+{% extends 'base2.html' %}
 {% load static %}
 
 {% block page %}
-
 <nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="{% url 'view_cliente' %}">Home</a></li>
-      <li class="breadcrumb-item"><a href="{% url 'vehiculos' %}">Vehiculos</a></li>
-      <li class="breadcrumb-item active" aria-current="page">Registrar Vehiculos</li>
-  </ol>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'view_cliente' %}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'vehiculos' %}">Vehiculos</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Registrar Vehiculos</li>
+    </ol>
 </nav>
 
 <div class="container">
+    <div class="card my-4">
+        <div class="card-body">
+            <form id="form-paso-1" class="formulario" action="{% url 'create_vehiculo' %}" method="POST">
+                {% csrf_token %}
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Empresa:</label>
+                    <div class="col-sm-10">
+                        <select name="empresa" required class="form-control" id="id_empresa">
+                            <option value="selecciona_modelo" selected>Selecciona un modelo</option>
+                            {% for empresa in empresas %}
+                            <option value="{{empresa.codigo}}" data-has-modelos="{{empresa.has_modelos|yesno:'true,false'}}" data-modelos="{{empresa.modelos}}">
+                                {{empresa.nombre}}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Año fabricacion:</label>
+                    <div class="col-sm-10">
+                        <input type="date" name="ano_fabricacion" required class="form-control">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="id_nombre" class="col-sm-2 col-form-label">Numero de placa:</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="n_placa" maxlength="10" required class="form-control">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="id_direccion" class="col-sm-2 col-form-label">Numeración:</label>
+                    <div class="col-sm-10">
+                        <input type="text" id="id_direccion" name="numeracion" maxlength="10" required
+                            class="form-control">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Propietario:</label>
+                    <div class="col-sm-10">
+                        <select name="propietario" required class="form-control">
+                            {% for persona in personas %}
+                            <option value="{{persona.codigo}}">{{persona.nombre}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Conductor:</label>
+                    <select name="conductor" required class="form-control">
+                        {% for persona in personas %}
+                        <option value="{{persona.codigo}}"> {{persona.nombre}} </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Estado:</label>
+                    <select name="estado" required class="form-control">
+                        {% for estado in estados %}
+                        <option value="{{estado.codigo}}"> {{estado.descripcion}} </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Marca:</label>
+                  <select name="marca" required class="form-control" id="id_marca">
+                      <option value="" selected>Selecciona una marca</option>
+                      {% for marca in marcas %}
+                      <option value="{{ marca.codigo }}" data-modelos="{{ marca.modelos }}">
+                          {{ marca.descripcion }}
+                      </option>
+                      {% endfor %}
+                  </select>
+              </div>
+              <div class="form-group">
+                  <label class="form-label">Modelo:</label>
+                  <select name="modelo" required class="form-control" id="id_modelo" disabled>
+                      <option value="">Selecciona una marca primero</option>
+                  </select>
+              </div>
+
   
-  <div class="card my-4">
-      <div class="card-body">
-          <form id="form-paso-1" class="formulario" action="{% url 'create_vehiculo' %}" method="POST" >
-
-              {% csrf_token %}
-
-              <div class="form-group row">
-                  <label  class="col-sm-2 col-form-label">Empresa:</label>
-                  <div class="col-sm-10">
-                      <select id="" name="empresa" required class="form-control">
-                          {% for empresa in empresas %}
-                              <option value="{{empresa.codigo}}">{{empresa.nombre}}</option>
-                          {% endfor %}
-                      </select>
-                  </div>
-              </div>
-              <div class="form-group row">
-                <label  class="col-sm-2 col-form-label">Año fabricacion:</label>
-               
-                <div class="col-sm-10">
-                  <input  type="date" name="ano_fabricacion" required class="form-control">
-              </div>
-            </div>
+      
               
-
-              <div class="form-group row">
-                  <label for="id_nombre" class="col-sm-2 col-form-label">Numero de placa:</label>
-                  <div class="col-sm-10">
-                      <input type="text"  name="n_placa" maxlength="10" required class="form-control">
-                  </div>
-              </div>
-
-              <div class="form-group row">
-                  <label for="id_direccion" class="col-sm-2 col-form-label">Numeración:</label>
-                  <div class="col-sm-10">
-                      <input type="text" id="id_direccion" name="numeracion" maxlength="10" required class="form-control">
-                  </div>
-              </div>
-
-              <div class="form-group row">
-                  <label  class="col-sm-2 col-form-label">Propietario:</label>
-                  <div class="col-sm-10">
-                      <select id="" name="propietario" required class="form-control">
-                          {% for persona in personas %}
-                              <option value="{{persona.codigo}}">{{persona.nombre}}</option>
-                          {% endfor %}
-                      </select>
-                  </div>
-              </div>
-
-              <div class="form-group">
-                <label  class="form-label">Conductor:</label>
-                <select id="" name="conductor" required class="form-control">
-                {% for persona in personas %}
-                
-                <option value="{{persona.codigo}}"> {{persona.nombre}} </option>
-                
-                {% endfor %}
-                </select>
-              </div>
-              <div class="form-group">
-                <label  class="form-label">Estado:</label>
-                <select id="" name="estado" required class="form-control">
-                {% for estado in estados %}
-                
-                <option value="{{estado.codigo}}"> {{estado.descripcion}} </option>
-                
-                {% endfor %}
-                </select>
-              </div>
-              <div class="form-group">
-                <label  class="form-label">Modelo:</label>
-                <select  name="modelo" required class="form-control">
-                {% for modelo in modelos %}
-                
-                <option value="{{modelo.codigo}}"> {{modelo.descripcion}} </option>
-                
-                {% endfor %}
-                </select>
-              </div>
-              <button type="submit" class="btn btn-primary btn-block">Crear</button>
+                <button type="submit" class="btn btn-primary btn-block">Crear</button>
             </form>
-          </div>
         </div>
-      </div>
-      {% endblock %}
+    </div>
+</div>
+
+<script>
+  var modelosData = {{ modelos_data|safe }};
+  $('#id_marca').on('change', function () {
+      const selectedOption = $(this).find(':selected').val();
+      console.log('El valor seleccionado es:', selectedOption);
+
+      if (selectedOption !== '') {
+          const modelos = modelosData[selectedOption];
+          console.log('Tiene modelos:', modelos.length > 0);
+
+          const modeloSelect = $('#id_modelo');
+          modeloSelect.empty();
+          modeloSelect.prop('disabled', modelos.length === 0);
+
+          if (modelos.length > 0) {
+              modelos.forEach((modelo) => {
+                  modeloSelect.append(`<option value="${modelo.codigo}">${modelo.descripcion}</option>`);
+              });
+          } else {
+              modeloSelect.append('<option value="">No hay modelos disponibles para esta marca</option>');
+          }
+      } else {
+          $('#id_modelo').prop('disabled', true).empty();
+      }
+  });
+
+</script>
+
+
+{% endblock %}

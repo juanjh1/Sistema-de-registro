@@ -15,9 +15,7 @@
 </nav>
 <div class="container">
   <div class="card my-4">
-    <div class="card-header">
-      Formulario
-    </div>
+   
     <div class="card-body">
       <form id="form-paso-1" class="formulario" action="{% url 'actualizar_paradero'  code=paradero.codigo%}" method="POST" >
         {% csrf_token %}

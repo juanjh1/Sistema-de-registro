@@ -111,6 +111,10 @@ def actualizar_empresa (request, code):
     }
 
     return render(request, 'actualizar_empresa.html',context )
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from django.utils import timezone
+from . import models
 
 @login_required
 def create_licencia(request, code):
@@ -118,17 +122,15 @@ def create_licencia(request, code):
         empresa = models.Empresa.objects.filter(codigo=code).first()
 
         recibo = request.POST.get('Recibo_caja')
-        archivo = request.POST.get('archivo')
+        archivo = request.FILES.get('archivo')  # Cambia a request.FILES.get para acceder al archivo
         fecha_inicio_str = request.POST.get('fecha_inicial')
         fecha_final_str = request.POST.get('fecha_final')
         numero_resolucion = request.POST.get('numero_resolucion')
 
-       
         if fecha_inicio_str:
             fecha_inicio = timezone.datetime.strptime(fecha_inicio_str, "%Y-%m-%d").date()
         else:
             fecha_inicio = None
-
 
         if fecha_final_str and fecha_inicio:
             fecha_final = timezone.datetime.strptime(fecha_final_str, "%Y-%m-%d").date()
@@ -164,26 +166,23 @@ def create_licencia(request, code):
 
 @login_required
 def create_paradero(request):
-    if request.method =='POST':
-     
+    if request.method == 'POST':
         nombre = request.POST.get('nombre')
         fecha_resolucion = request.POST.get('fecha_resolucion')
         numero_resolucion = request.POST.get('numero_resolucion')
-        usuario = User.objects.filter(id=request.user.id).first()
+        usuario = request.user  # Puedes obtener el usuario actual directamente con request.user
 
         models.Paradero.objects.create(
-
-            nombre = nombre,
-            numero_resolucion = numero_resolucion,
-            fecha_resolcuion = fecha_resolucion,
-            usuario= usuario
-
+            nombre=nombre,
+            numero_resolucion=numero_resolucion,
+            fecha_resolucion=fecha_resolucion,  # Corrige el nombre del campo a "fecha_resolucion"
+            usuario=usuario
         )
-   
-        return redirect('/empresa/paradero')
-      
 
-    return render(request,'paradero/registrar_paradero.html')
+        return redirect('/empresa/paradero/')
+
+    return render(request, 'paradero/registrar_paradero.html')
+
 
 
 @login_required   
