@@ -76,3 +76,24 @@ def search(request):
     if user is not None:
         return redirect(f'/profile/{user.id}')
     return redirect('/home/')
+
+
+def socialmedia(request,id ):
+    if request.method == 'POST':
+        facebook = request.POST.get('facebook')
+        instagram = request.POST.get('instagram')
+        twi = request.POST.get('tw')
+
+        user = User.objects.filter(id=id).first()
+
+        info_user = models.InformacionUsuario.objects.filter(user=user).first()
+
+        info_user.facebook = facebook
+        info_user.instagram = instagram
+        info_user.twiter = twi
+
+        info_user.save()
+        return redirect(f"/profile/{id}") 
+        
+    return render(request, 'social_media.html')
+

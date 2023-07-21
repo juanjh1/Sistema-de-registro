@@ -5,9 +5,7 @@
 {% block page %}
 <div class="container">
 <div class="card my-4">
-<div class="card-header">
-<h3>Información de Usuario</h3>
-</div>
+
 <div class="card-body">
 <form action="{% url 'actualizar_perfil' id=user.id %}" method="POST" enctype="multipart/form-data">
 {% csrf_token %}

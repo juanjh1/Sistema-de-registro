@@ -11,4 +11,6 @@ class InformacionUsuario (models.Model):
     direccion = models.CharField(max_length=60, null=True)
     fechanacimiento = models.DateField(null=True)
     user = models.ForeignKey(User,  on_delete=models.CASCADE)
-    
+    instagram = models.URLField(null=None)
+    facebook = models.URLField(null=None)
+    twiter = models.URLField(null=None)

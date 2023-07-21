@@ -1,0 +1,151 @@
+/* Sidebar styles */
+#accordionSidebar {
+    background-color: #333333;
+    transition: width 0.2s;
+}
+
+.sidebar .nav-item .nav-link {
+    color: #ffffff;
+    transition: color 0.2s;
+}
+
+.sidebar .nav-item .nav-link:hover {
+    color: #eaeaea;
+}
+
+.sidebar .nav-item.active .nav-link {
+    background-color: #555555;
+}
+
+/* User section styles */
+.user-section {
+    background-color: #007bff;
+    color: #ffffff;
+    padding: 10px;
+}
+
+.user-section .user-icon {
+    font-size: 18px;
+    margin-right: 5px;
+}
+
+/* Card styles */
+.profile-card {
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    background-color: #ffffff;
+}
+
+.profile-card .card-header {
+    background-color: #007bff;
+    color: #ffffff;
+    border-radius: 10px 10px 0 0;
+    text-align: center;
+    padding: 20px;
+}
+
+.profile-card .card-body {
+    padding: 30px;
+}
+
+.profile-pic {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin: 0 auto;
+    display: block;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+.profile-card h2 {
+    font-size: 28px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    text-align: center;
+    color: #007bff;
+}
+
+.profile-card p {
+    font-size: 16px;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.profile-card .description-label {
+    font-weight: bold;
+    color: #333;
+}
+
+.btn-back {
+    background-color: #6c757d;
+    border-color: #6c757d;
+    color: #ffffff;
+    margin-right: 5px;
+}
+
+.btn-back:hover {
+    background-color: #5a6268;
+    border-color: #5a6268;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.social-icon {
+    font-size: 24px;
+    margin: 0 10px;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.social-icon.not-exists {
+    color: #ccc;
+}
+
+.btn-send {
+    background-color: #ffffff;
+    border-color: #000000;
+    color: #000000;
+    width: 100%;
+    margin-top: 15px;
+}
+
+.btn-send:hover {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+/* Additional styles and animations */
+
+/* Sidebar animation */
+.sidebar.toggled {
+    width: 60px;
+}
+
+.sidebar.toggled .nav-item .nav-link {
+    text-align: center;
+    padding: 5px;
+}
+
+/* User icon animation */
+.user-icon {
+    transition: transform 0.3s;
+}
+
+.user-icon.active {
+    transform: rotate(360deg);
+}
+
+/* Profile card animation */
+.profile-card {
+    transition: transform 0.3s;
+}
+
+.profile-card.active {
+    transform: translateY(-10px);
+}

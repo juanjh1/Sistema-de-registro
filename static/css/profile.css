@@ -1,0 +1,81 @@
+body {
+    background-color: #f8f9fa;
+}
+.navbar {
+    background-color: #000000;
+}
+.profile-card {
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+.profile-card .card-header {
+    background-color: #000000;
+    color: #ffffff;
+    border-radius: 10px 10px 0 0;
+    text-align: center;
+    padding: 20px;
+}
+.profile-pic {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin: 0 auto;
+    display: block;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+.profile-card h2 {
+    font-size: 28px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    text-align: center;
+    color: #000000;
+}
+.profile-card p {
+    font-size: 16px;
+    margin-bottom: 5px;
+    color: #000000;
+}
+.profile-card .description-label {
+    font-weight: bold;
+    color: #000000;
+}
+.btn-back {
+    background-color: #6c757d;
+    border-color: #6c757d;
+    color: #ffffff;
+    margin-right: 5px;
+}
+.btn-back:hover {
+    background-color: #5a6268;
+    border-color: #5a6268;
+}
+.social-icons {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+.social-icon {
+    font-size: 24px;
+    margin: 0 10px;
+    color: #000000;
+    cursor: pointer;
+}
+.social-icon.not-exists {
+    color: #ccc;
+}
+.btn-send {
+    background-color: #ffffff;
+    border-color: #000000;
+    color: #000000;
+    width: 100%;
+    margin-top: 15px;
+}
+.btn-send:hover {
+    background-color: #000000;
+    color: #ffffff;
+}
