@@ -1,3 +1,5 @@
 .env
 env
-local_senttings.py
+local_senttings.
+/migrations
+/media
