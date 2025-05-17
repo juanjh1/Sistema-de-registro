@@ -4,11 +4,11 @@ services:
     image: mysql
     restart: always
     volumes:
-      - vehicle-system:/var/lib/mysql
+      - vehicle-volumen:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
     ports: [ "3306:3306" ]
 volumes:
-    loans-db-volumen:
+    vehicle-volumen:
         external: true
