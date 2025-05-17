@@ -1,0 +1,14 @@
+services:
+  mysql-db:
+    container_name: vehicle-system
+    image: mysql
+    restart: always
+    volumes:
+      - vehicle-system:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    ports: [ "3306:3306" ]
+volumes:
+    loans-db-volumen:
+        external: true

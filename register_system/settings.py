@@ -6,6 +6,7 @@ from local_senttings import USERDB
 from local_senttings import DBPASSWORD
 from local_senttings import EMAIL_HOST
 from local_senttings import EMAIL_HOST_PASSWORD
+from local_senttings import DB_NAME
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -81,7 +82,7 @@ WSGI_APPLICATION = "register_system.wsgi.application"
 DATABASES = {
     'default': {
     'ENGINE': 'django.db.backends.mysql',
-    'NAME': 'systema_registro',
+    'NAME': DB_NAME,
     'USER': USERDB,
     'PASSWORD': DBPASSWORD,
     'HOST': 'localhost',
