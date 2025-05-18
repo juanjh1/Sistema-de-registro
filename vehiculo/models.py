@@ -6,9 +6,7 @@ from uuid import uuid4
 import json
 import os 
 
-# constantes 
-MARCAS_ROUT =os.path.join(os.path.dirname(__file__), '../marcas.json')
-MODELOS_ROUT =os.path.join(os.path.dirname(__file__), '../modelos.json') 
+ 
 
 class Marca(models.Model):
     codigo =  models.IntegerField(primary_key=True)
@@ -53,10 +51,12 @@ class Vehiculo(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.CASCADE) 
     estado = models.ForeignKey(Estado, on_delete=models.CASCADE)
 
+
+MARCAS_ROUT =os.path.join(os.path.dirname(__file__), '../marcas.json')
+MODELOS_ROUT =os.path.join(os.path.dirname(__file__), '../modelos.json') 
    
 def importar_datos_desde_json():
     try:
-        # Leer el archivo JSON de marcas
         with open(MARCAS_ROUT) as archivo_marcas:
             marcas = json.load(archivo_marcas)
 
@@ -73,7 +73,6 @@ def importar_datos_desde_json():
                 else:
                     print(f"Marca {codigo} - {descripcion} ya existe en la base de datos. Se omitió la importación.")
 
-        # Leer el archivo JSON de modelos
         with open(MODELOS_ROUT) as archivo_modelos:
             modelos = json.load(archivo_modelos)
 

@@ -1,101 +1,60 @@
+{% extends 'base.html' %}
+
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-     <link rel="stylesheet" href="{% static 'css/profile.css' %}">
-    <!-- Font Awesome CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <!-- Custom Styles -->
-    <style>
 
-    </style>
-</head>
-<body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-md bg-dark navbar-dark">
-        <div class="container">
-            <a class="navbar-brand" href="#">Bienvenido</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="collapsibleNavbar">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'view_cliente' %}">Inicio</a>
-                    </li>
-                    {% if user == usuario %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'actualizar_perfil' id=usuario.id %}">Actualizar Perfil</a>
-                        </li>
-                    {% endif %}
-                </ul>
-            </div>
+{% block page %}
+<div class="container py-5">
+    <div class="profile-card">
+        <div class="card-header">
+            <h2 class="mb-0" style="color:white">{{ usuario.first_name }} {{ usuario.last_name }}</h2>
         </div>
-    </nav>
+        <div class="card-body">
+            {% if usuario.foto %}
+            <img src="{{ usuario.foto.url }}" alt="Foto de usuario" class="profile-pic">
+            {% else %}
+            <img src="{% static 'img/default.png' %}" alt="Foto de usuario por defecto" class="profile-pic">
+            {% endif %}
+            <h2 class="mb-0">{{ usuario.username }}</h2>
+            <p class="mb-0"><span class="description-label">Email:</span> {{ usuario.email }}</p>
+            {% if info_usuario.numerotelefonico %}
+            <p class="mb-0"><span class="description-label">Telefono:</span> {{ info_usuario.numerotelefonico }}</p>
+            {% endif %}
+            {% if info_usuario.genero %}
+            <p class="mb-0"><span class="description-label">Genero:</span> {{ info_usuario.genero }}</p>
+            {% endif %}
+            {% if info_usuario.direccion %}
+            <p class="mb-0"><span class="description-label">Direccion:</span> {{ info_usuario.direccion }}</p>
+            {% endif %}
+            {% if info_usuario.fechanacimiento %}
+            <p class="mb-0"><span class="description-label">Fecha de Nacimiento:</span> {{ info_usuario.fechanacimiento
+                }}</p>
+            {% endif %}
+            <div class="social-icons">
+                {% if info_usuario.facebook %}
+                <!-- El usuario tiene un valor asignado en info_usuario.facebook -->
+                <span class="social-icon"><a href="{{ info_usuario.facebook }}"><i
+                            class="fab fa-facebook-square"></i></a></span>
+                {% else %}
+                <!-- El usuario no tiene un valor asignado en info_usuario.facebook -->
+                <span>No disponible</span>
+                {% endif %}
 
-    <!-- Profile Card -->
-    <div class="container py-5">
-        <div class="profile-card">
-            <div class="card-header">
-                <h2 class="mb-0" style="color:white">{{ usuario.first_name }} {{ usuario.last_name }}</h2>
+                {% if info_usuario.twiter %}
+                <span class="social-icon"><a href="{{ info_usuario.twitter }}"><i
+                            class="fab fa-twitter-square"></i></a></span>
+                {% endif %}
+                {% if info_usuario.instagram %}
+                <span class="social-icon"><a href="{{ info_usuario.instagram }}"><i
+                            class="fab fa-instagram-square"></i></a></span>
+                {% endif %}
+
             </div>
-            <div class="card-body">
-                {% if usuario.foto %}
-                    <img src="{{ usuario.foto.url }}" alt="Foto de usuario" class="profile-pic">
-                {% else %}
-                    <img src="{% static 'img/default.png' %}" alt="Foto de usuario por defecto" class="profile-pic">
-                {% endif %}
-                <h2 class="mb-0">{{ usuario.username }}</h2>
-                <p class="mb-0"><span class="description-label">Email:</span> {{ usuario.email }}</p>
-                {% if info_usuario.numerotelefonico %}
-                    <p class="mb-0"><span class="description-label">Telefono:</span> {{ info_usuario.numerotelefonico }}</p>
-                {% endif %}
-                {% if info_usuario.genero %}
-                    <p class="mb-0"><span class="description-label">Genero:</span> {{ info_usuario.genero }}</p>
-                {% endif %}
-                {% if info_usuario.direccion %}
-                    <p class="mb-0"><span class="description-label">Direccion:</span> {{ info_usuario.direccion }}</p>
-                {% endif %}
-                {% if info_usuario.fechanacimiento %}
-                    <p class="mb-0"><span class="description-label">Fecha de Nacimiento:</span> {{ info_usuario.fechanacimiento }}</p>
-                {% endif %}
-                <div class="social-icons">
-                    {% if info_usuario.facebook %}
-                    <!-- El usuario tiene un valor asignado en info_usuario.facebook -->
-                    <span class="social-icon"><a href="{{ info_usuario.facebook }}"><i class="fab fa-facebook-square"></i></a></span>
-                {% else %}
-                    <!-- El usuario no tiene un valor asignado en info_usuario.facebook -->
-                    <span>No disponible</span>
-                {% endif %}
-
-                    {% if info_usuario.twiter %}
-                        <span class="social-icon"><a href="{{ info_usuario.twitter }}"><i class="fab fa-twitter-square"></i></a></span>
-                    {% endif %}
-                    {% if info_usuario.instagram %}
-                        <span class="social-icon"><a href="{{ info_usuario.instagram }}"><i class="fab fa-instagram-square"></i></a></span>
-                    {% endif %}
-                     
-                </div>
             {% if user == usuario %}
-         
-                <div class="card-footer text-center">
-                    <button class="btn btn-send" onclick="window.location.href='{% url 'socialmedia' id=usuario.id %}'">Agregar/Editar Redes Sociales</button>
-                </div>
-            {%endif%}
-            
-        </div>
-    </div>
 
-    <!-- Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <!-- Font Awesome JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
-</body>
-</html>
+            <div class="card-footer text-center">
+                <button class="btn btn-send"
+                    onclick="window.location.href='{% url 'socialmedia' id=usuario.id %}'">Agregar/Editar Redes
+                    Sociales</button>
+            </div>
+            {%endif%}
+            {% endblock %}
