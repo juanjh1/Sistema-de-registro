@@ -1,4 +1,4 @@
-{% extends 'base2.html' %}
+{% extends 'base.html' %}
 
 {% load static %}
 
@@ -9,8 +9,6 @@
             <li class="breadcrumb-item active" aria-current="page">Home</li>
         </ol>
     </nav>
-
-    <!-- Últimos usuarios registrados -->
     <div class="row">
         <div class="col-md-12">
             <div class="card bg-primary text-black mb-4">
@@ -34,8 +32,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Últimas personas registradas -->
     <div class="row">
         <div class="col-md-12">
             <div class="card bg-success text-black mb-4">
@@ -60,8 +56,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Últimos vehículos registrados -->
     <div class="row">
         <div class="col-md-12">
             <div class="card bg-primary text-black mb-4">
@@ -74,9 +68,9 @@
                         <div class="col-md-4">
                             <div class="card bg-light mb-3">
                                 <div class="card-body">
-                                    <h5 class="card-title text-primary">Número de placa: {{ vehiculo.numero_placa }}</h5>
+                                    <h5 class="card-title text-primary">Número de placa: {{ vehiculo.numero_placa }}
+                                    </h5>
                                     <p class="card-text">Propietario: {{ vehiculo.propietario.nombre }}</p>
-                                    <!-- Agrega otros datos relevantes del vehículo aquí -->
                                 </div>
                             </div>
                         </div>
@@ -84,7 +78,7 @@
                     </div>
                 </div>
             </div>
-          </div>
+        </div>
     </div>
 </div>
 {% endblock %}
