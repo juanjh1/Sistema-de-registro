@@ -1,6 +1,4 @@
-<!-- vehiculo.html -->
-
-{% extends 'base2.html' %}
+{% extends 'base.html' %}
 {% load static %}
 
 {% block page %}
@@ -23,7 +21,9 @@
                         <select name="empresa" required class="form-control" id="id_empresa">
                             <option value="selecciona_modelo" selected>Selecciona un modelo</option>
                             {% for empresa in empresas %}
-                            <option value="{{empresa.codigo}}" data-has-modelos="{{empresa.has_modelos|yesno:'true,false'}}" data-modelos="{{empresa.modelos}}">
+                            <option value="{{empresa.codigo}}"
+                                data-has-modelos="{{empresa.has_modelos|yesno:'true,false'}}"
+                                data-modelos="{{empresa.modelos}}">
                                 {{empresa.nombre}}
                             </option>
                             {% endfor %}
@@ -76,26 +76,22 @@
                     </select>
                 </div>
                 <div class="form-group">
-                  <label class="form-label">Marca:</label>
-                  <select name="marca" required class="form-control" id="id_marca">
-                      <option value="" selected>Selecciona una marca</option>
-                      {% for marca in marcas %}
-                      <option value="{{ marca.codigo }}" data-modelos="{{ marca.modelos }}">
-                          {{ marca.descripcion }}
-                      </option>
-                      {% endfor %}
-                  </select>
-              </div>
-              <div class="form-group">
-                  <label class="form-label">Modelo:</label>
-                  <select name="modelo" required class="form-control" id="id_modelo" disabled>
-                      <option value="">Selecciona una marca primero</option>
-                  </select>
-              </div>
-
-  
-      
-              
+                    <label class="form-label">Marca:</label>
+                    <select name="marca" required class="form-control" id="id_marca">
+                        <option value="" selected>Selecciona una marca</option>
+                        {% for marca in marcas %}
+                        <option value="{{ marca.codigo }}" data-modelos="{{ marca.modelos }}">
+                            {{ marca.descripcion }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Modelo:</label>
+                    <select name="modelo" required class="form-control" id="id_modelo" disabled>
+                        <option value="">Selecciona una marca primero</option>
+                    </select>
+                </div>
                 <button type="submit" class="btn btn-primary btn-block">Crear</button>
             </form>
         </div>
@@ -103,30 +99,30 @@
 </div>
 
 <script>
-  var modelosData = {{ modelos_data|safe }};
-  $('#id_marca').on('change', function () {
-      const selectedOption = $(this).find(':selected').val();
-      console.log('El valor seleccionado es:', selectedOption);
+    var modelosData = {{ modelos_data| safe }};
+    $('#id_marca').on('change', function () {
+        const selectedOption = $(this).find(':selected').val();
+        console.log('El valor seleccionado es:', selectedOption);
 
-      if (selectedOption !== '') {
-          const modelos = modelosData[selectedOption];
-          console.log('Tiene modelos:', modelos.length > 0);
+        if (selectedOption !== '') {
+            const modelos = modelosData[selectedOption];
+            console.log('Tiene modelos:', modelos.length > 0);
 
-          const modeloSelect = $('#id_modelo');
-          modeloSelect.empty();
-          modeloSelect.prop('disabled', modelos.length === 0);
+            const modeloSelect = $('#id_modelo');
+            modeloSelect.empty();
+            modeloSelect.prop('disabled', modelos.length === 0);
 
-          if (modelos.length > 0) {
-              modelos.forEach((modelo) => {
-                  modeloSelect.append(`<option value="${modelo.codigo}">${modelo.descripcion}</option>`);
-              });
-          } else {
-              modeloSelect.append('<option value="">No hay modelos disponibles para esta marca</option>');
-          }
-      } else {
-          $('#id_modelo').prop('disabled', true).empty();
-      }
-  });
+            if (modelos.length > 0) {
+                modelos.forEach((modelo) => {
+                    modeloSelect.append(`<option value="${modelo.codigo}">${modelo.descripcion}</option>`);
+                });
+            } else {
+                modeloSelect.append('<option value="">No hay modelos disponibles para esta marca</option>');
+            }
+        } else {
+            $('#id_modelo').prop('disabled', true).empty();
+        }
+    });
 
 </script>
 
