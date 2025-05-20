@@ -1,7 +1,5 @@
 {% extends 'auth-base.html' %}
 
-{% extends 'auth-base.html' %}
-
 {% load static %}
 
 {% block content%}
@@ -23,26 +21,26 @@
                                     placeholder="name" name="name">
                             </div>
                             <div class="col-sm-6">
-                                <input type="text" class="form-control form-control-user" id="exampleLastName"
+                                <input type="text" class="form-control form-control-user" id="lastName"
                                     placeholder="lastaname" name='lastname'>
                             </div>
                         </div>
                         <div class="form-group">
-                            <input type="email" class="form-control form-control-user" id="exampleInputEmail"
+                            <input type="email" class="form-control form-control-user" id="email"
                                 placeholder="Emai" name='email'>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control form-control-user" id="exampleInputEmail"
+                            <input type="text" class="form-control form-control-user" id="userName"
                                 placeholder="Username" name='username'>
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control form-control-user" id="exampleInputEmail"
+                            <input type="password" class="form-control form-control-user" id="password"
                                 placeholder="Password" name='password'>
                         </div>
 
 
                         <div class="col-12 form-group py-3">
-                            <button class="btn btn-primary btn-user btn-block" type="submit">Crear cuenta</button>
+                            <button class="btn btn-primary btn-user btn-block" id="submitBtn" type="submit">Crear cuenta</button>
                         </div>
 
                     </form>
@@ -61,3 +59,5 @@
 {% endblock %}
 
 {% block script %}
+    <script type="module" src="{% static 'js/validate-register.js' %}"></script>
+{% endblock %}
