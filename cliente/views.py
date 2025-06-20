@@ -7,7 +7,8 @@ from  vehiculo.models import Vehiculo
 from  persona.models import Persona
 
 def index(request):
-    return redirect('/auth/login/')
+    
+    return render(request, "index.html")
 
 
 @login_required

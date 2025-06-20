@@ -3,39 +3,43 @@
 {% load static %}
 
 {% block content%}
-<div class="card o-hidden border-0 shadow-lg my-5">
-    <div class="card-body p-0">
+
         <div class="row">
-            <div class="col-lg-5 d-none d-lg-block bg-register-image"><img src="{% static 'img/logo.jpg' %}"></div>
+            <div class="col-lg-5 d-none d-lg-block bg-register-image"><img src="{% static 'img/register-img.svg' %}"></div>
             <div class="col-lg-7">
                 <div class="p-5">
                     <div class="text-center">
                         <h1 class="h4 text-gray-900 mb-4">Crea una cuenta</h1>
                     </div>
 
-                    <form class="user" method='POST' action="{%url 'register' %}">
+                    <form class="user" method='POST' action="{%url 'register' %}" id="registerForm">
                         {% csrf_token %}
                         <div class="form-group row">
                             <div class="col-sm-6 mb-3 mb-sm-0">
                                 <input type="text" class="form-control form-control-user" id="name"
                                     placeholder="name" name="name">
+                                <label for="name"></label>
                             </div>
                             <div class="col-sm-6">
                                 <input type="text" class="form-control form-control-user" id="lastName"
                                     placeholder="lastaname" name='lastname'>
+                                <label for="lastName"></label>
                             </div>
                         </div>
                         <div class="form-group">
                             <input type="email" class="form-control form-control-user" id="email"
                                 placeholder="Emai" name='email'>
+                                   <label for="email"></label>
                         </div>
                         <div class="form-group">
                             <input type="text" class="form-control form-control-user" id="userName"
                                 placeholder="Username" name='username'>
+                            <label for="userName"></label>
                         </div>
                         <div class="form-group">
                             <input type="password" class="form-control form-control-user" id="password"
                                 placeholder="Password" name='password'>
+                            <label for="password"></label>
                         </div>
 
 
@@ -54,8 +58,6 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
 {% endblock %}
 
 {% block script %}

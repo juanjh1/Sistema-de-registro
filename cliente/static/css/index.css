@@ -1,0 +1,30 @@
+body{
+    margin: 0;
+    padding: 0;
+    
+}
+
+#nav-index{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    background-color: red
+}
+
+
+#nav-index-logo {
+    display: flex;
+    width: 40%;
+    padding-left: 40px;
+}
+#nav-index-logo img {
+   width: 45px;
+}
+
+#nav-index-logo h1{
+    margin-left: 20px;
+    width: min-content;
+    font-size: 16px;
+}
